@@ -1,0 +1,162 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 999; /* Ensure it floats above the service curtain and other elements */
+  background: transparent !important; /* Guarantee 100% full transparency */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4vw;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none; /* Let pointer events fall through the transparent body of the navbar */
+}
+
+/* Allow pointer events only for interactive components inside the container */
+.navbar-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.navbar--visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.navbar--hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.navbar-logo {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-img {
+  height: clamp(35px, 5vh, 50px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(111, 182, 255, 0.4));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+}
+
+.navbar-logo:hover .navbar-logo-img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(111, 182, 255, 0.7));
+}
+
+/* Sleek Pill sliding text button */
+.navbar-btn-slide {
+  position: relative;
+  height: 48px; /* Fixed height for precise sliding overflow */
+  width: clamp(230px, 20vw, 275px); /* Responsive but bounded width */
+  border-radius: 999px; /* Pill shape matching user image */
+  background-color: #ffffff; /* Default: white background */
+  border: 1.5px solid #ffffff;
+  overflow: hidden; /* Important for sliding overflow */
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.2s ease, box-shadow 0.4s ease;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sliding wrapper containing the two states */
+.navbar-btn-slide-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 96px; /* Twice the height of button (48px * 2) */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Individual rows inside the sliding wrapper */
+.navbar-btn-slide-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 48px; /* Same as button height */
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+/* Default state: Black text & icon on White bg */
+.navbar-btn-slide-row--default {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.navbar-btn-slide-row--default .discord-icon {
+  width: 18px;
+  height: 18px;
+  fill: #000000;
+  transition: fill 0.4s ease;
+}
+
+/* Hovered state: White text & icon on Black bg */
+.navbar-btn-slide-row--hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.navbar-btn-slide-row--hover .discord-icon {
+  width: 18px;
+  height: 18px;
+  fill: #ffffff;
+  transition: fill 0.4s ease;
+}
+
+/* Hover behaviors */
+.navbar-btn-slide:hover {
+  background-color: #000000;
+  border-color: #000000;
+  box-shadow: 0 8px 25px rgba(111, 182, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.navbar-btn-slide:hover .navbar-btn-slide-wrapper {
+  transform: translateY(-50%); /* Slide row 2 up */
+}
+
+/* Active click feedback */
+.navbar-btn-slide:active {
+  transform: translateY(0) scale(0.96);
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    height: 75px;
+    padding: 0 5vw;
+  }
+  
+  .navbar-btn-slide {
+    height: 40px;
+    width: 210px;
+  }
+
+  .navbar-btn-slide-wrapper {
+    height: 80px;
+  }
+
+  .navbar-btn-slide-row {
+    height: 40px;
+    gap: 8px;
+  }
+}
+
