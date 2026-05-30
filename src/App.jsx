@@ -4,7 +4,6 @@ import Hero from './components/Hero/Hero.jsx';
 import Services from './components/Services/Services.jsx';
 import Rewards from './components/Rewards/Rewards.jsx';
 import Team from './components/Team/Team.jsx';
-import Testimonials from './components/Testimonials/Testimonials.jsx';
 import CTA from './components/CTA/CTA.jsx';
 import LiquidFooter from './components/LiquidFooter/LiquidFooter.jsx';
 
@@ -108,7 +107,6 @@ export default function App() {
         <Services />
         <Rewards />
         <Team />
-        <Testimonials />
         <CTA />
       </main>
       <LiquidFooter />

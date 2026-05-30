@@ -46,37 +46,6 @@ export default function CTA() {
     gsap.set(blueout, { opacity: 0 });
     gsap.set(finalScreen, { opacity: 0, scale: 0.85 });
 
-    // Slide testimonials off to corner as we approach
-    const testimonialsEl = document.getElementById('testimonials');
-
-    const handoff = ScrollTrigger.create({
-      trigger: section,
-      start: 'top bottom',
-      end: 'top top',
-      scrub: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        if (!testimonialsEl) return;
-        const p = self.progress;
-        // Promote to a 3D layer only while the handoff animates.
-        gsap.set(testimonialsEl, {
-          force3D: true,
-          transformOrigin: 'center center',
-          xPercent: 80 * p,
-          yPercent: -60 * p,
-          scale: 1 - 0.5 * p,
-          opacity: 1 - p,
-        });
-      },
-      onToggle: (self) => {
-        // Clear the GPU promotion when out of range so the full-screen
-        // testimonials section isn't left permanently composited.
-        if (!self.isActive && testimonialsEl) {
-          gsap.set(testimonialsEl, { clearProps: 'transform,opacity' });
-        }
-      }
-    });
-
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
@@ -112,10 +81,8 @@ export default function CTA() {
       .to(finalScreen, { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' }, '+=0.1');
 
     return () => {
-      handoff.kill();
       tl.scrollTrigger?.kill();
       tl.kill();
-      if (testimonialsEl) gsap.set(testimonialsEl, { clearProps: 'all' });
     };
   }, []);
 

@@ -79,7 +79,7 @@ export default function Hero() {
       ref={sectionRef}
       className="hero-section relative h-screen w-full overflow-hidden select-none"
     >
-      <img src={heroBg} alt="" className="hero-bg-image" aria-hidden="true" />
+      {/* <img src={heroBg} alt="" className="hero-bg-image" aria-hidden="true" /> */}
 
       <div ref={textWrapRef} className="hero-text-wrapper">
         <h1 className="hero-fl-text">
