@@ -1,0 +1,90 @@
+import { useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
+import discussImg from '../../images/discusstheproejct.webp';
+
+export default function Contact() {
+  const handleOpenModal = () => {
+    window.dispatchEvent(new CustomEvent('open-project-modal'));
+  };
+
+  return (
+    <section id="contact" className="relative py-24 sm:py-32 px-5 sm:px-8 lg:px-12 bg-transparent overflow-hidden">
+      
+      {/* Background glowing highlights */}
+      <div className="absolute top-[20%] left-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(122,92,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
+      <div className="absolute bottom-[20%] right-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,217,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
+
+      <div className="max-w-[1500px] mx-auto relative z-10">
+        
+        {/* Premium Light-Grey Glassmorphic Card Container */}
+        <div 
+          className="reveal relative overflow-hidden bg-slate-100/95 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 rounded-[3rem] p-8 sm:p-16 lg:p-20 shadow-[0_30px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_30px_70px_-10px_rgba(0,0,0,0.6)]"
+        >
+          {/* Subtle Internal Glow Spots */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-brand/5 to-cyan-brand/5 pointer-events-none" />
+          <div className="absolute top-[-10%] left-[-10%] w-[300px] h-[300px] bg-cyan-brand/10 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] bg-purple-brand/10 rounded-full blur-[80px] pointer-events-none" />
+
+          {/* Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Column: Premium Text & Discuss Button */}
+            <div className="lg:col-span-7 flex flex-col items-start text-left relative z-10">
+              <span className="badge mb-6 select-none">
+                <span className="badge-dot" style={{ background: 'var(--cyan-accent)' }} />
+                Get In Touch
+              </span>
+              
+              <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-base-strong uppercase tracking-tight leading-[1.1] mb-6 select-none">
+                Let's Build Something <br className="hidden sm:inline" />
+                <span className="text-gradient font-black">That Gets Noticed</span>
+              </h2>
+              
+              <p className="text-base-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-xl select-none">
+                From KOL campaigns to developer support, tell us what you're building and we'll create the right strategy.
+              </p>
+
+              {/* Cyan Outline Pill Button (Opening Form) */}
+              <button
+                onClick={handleOpenModal}
+                className="border-2 border-cyan-brand text-cyan-brand hover:bg-cyan-brand hover:text-slate-950 hover:shadow-[0_0_35px_rgba(0,217,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 font-display font-black text-sm sm:text-base uppercase tracking-widest px-8 sm:px-10 py-4 rounded-2xl cursor-pointer select-none flex items-center gap-3 group btn-slide"
+              >
+                <span className="btn-slide-text-wrapper">
+                  <span className="btn-slide-text" data-text="Discuss The Project">Discuss The Project</span>
+                </span>
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 shrink-0 z-10" />
+              </button>
+            </div>
+
+            {/* Right Column: Premium 3D Discussion Illustration */}
+            <div className="lg:col-span-5 flex items-center justify-center relative z-10">
+              <div className="relative group">
+                {/* Floating animation container */}
+                <div className="animate-float-slow">
+                  <img
+                    src={discussImg}
+                    alt="Discuss the project illustration"
+                    className="w-full max-w-[480px] h-auto object-contain filter drop-shadow-[0_20px_50px_rgba(122,92,255,0.18)] transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1 select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      {/* Floating Animation Styles */}
+      <style>{`
+        @keyframes floatSlow {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        .animate-float-slow {
+          animation: floatSlow 6s ease-in-out infinite;
+        }
+      `}</style>
+    </section>
+  );
+}

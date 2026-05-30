@@ -1,62 +1,207 @@
-import React, { useState, useEffect } from 'react';
-import './Navbar.css';
-import navLogo from '../../images/navLogo.png';
+import { useEffect, useState } from 'react';
+import {
+  Menu as MenuIcon,
+  X as XIcon,
+  Sun,
+  Moon,
+  Home,
+  Layers,
+  ShieldCheck,
+  Users,
+  MessageSquare,
+  HelpCircle,
+  Zap,
+  ZapOff
+} from 'lucide-react';
+import navLogoImg from '../../images/navLogo.webp';
+import { usePerformance } from '../../context/PerformanceContext.jsx';
 
 export default function Navbar() {
-  const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState('light');
+  const { performanceMode, togglePerformanceMode } = usePerformance();
 
+  // Load and apply theme
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('fl-theme') || 'light';
+    setTheme(savedTheme);
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('fl-theme', newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
+    }
+  };
+
+  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Always show navbar at the very top of the page
-      if (currentScrollY < 80) {
-        setVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        // Scrolling down - Hide
-        setVisible(false);
+      if (window.scrollY > 40) {
+        setScrolled(true);
       } else {
-        // Scrolling up - Show
-        setVisible(true);
+        setScrolled(false);
       }
-
-      setLastScrollY(currentScrollY);
     };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
-
-  const DiscordLogo = () => (
-    <svg viewBox="0 0 127.14 96.36" className="discord-icon" aria-hidden="true">
-      <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,52.88,6.83,77.19,77.19,0,0,0,49.58,0,105.15,105.15,0,0,0,19.14,8.07C2.81,32.22-1.71,55.77.49,78.9A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.45-5c.87-.64,1.72-1.31,2.53-2a75.76,75.76,0,0,0,72.6,0c.81.7,1.66,1.37,2.53,2a68.43,68.43,0,0,1-10.45,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.52-17.46C129.85,50.21,125.13,26.85,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z" />
-    </svg>
-  );
+  const navLinks = [
+    { label: 'Home', href: '#home', icon: Home },
+    { label: 'Services', href: '#services', icon: Layers },
+    { label: 'Why Us', href: '#why', icon: ShieldCheck },
+    { label: 'Operators', href: '#team', icon: Users },
+    { label: 'Reach Us', href: '#contact', icon: MessageSquare },
+    { label: 'FAQ', href: '#faq', icon: HelpCircle },
+  ];
 
   return (
-    <nav className={`navbar ${visible ? 'navbar--visible' : 'navbar--hidden'}`}>
-      <div className="navbar-container">
-        <div className="navbar-logo">
-          <img src={navLogo} alt="Future Leaders Logo" className="navbar-logo-img" />
-        </div>
-        <button className="navbar-btn-slide">
-          <div className="navbar-btn-slide-wrapper">
-            {/* Default State: Black on White */}
-            <div className="navbar-btn-slide-row navbar-btn-slide-row--default">
-              <DiscordLogo />
-              <span>JOIN US</span>
-            </div>
-            {/* Hovered State: White on Black */}
-            <div className="navbar-btn-slide-row navbar-btn-slide-row--hover">
-              <DiscordLogo />
-              <span>JOIN US</span>
-            </div>
+    <header
+      className="fixed left-0 right-0 top-0 z-50 transition-all duration-300 w-full"
+    >
+      <div
+        className={`w-full mx-auto transition-all duration-300 ${scrolled
+            ? 'glass-strong shadow-[0_10px_30px_rgba(0,0,0,0.08)] py-3 px-6 sm:px-12 border-b border-base'
+            : 'bg-transparent py-5 px-6 sm:px-12 border-none'
+          }`}
+      >
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <a href="#home" className="flex items-center select-none">
+            <img
+              src={navLogoImg}
+              alt="Future Leaders Logo"
+              className="h-9 sm:h-10 w-auto object-contain"
+            />
+          </a>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="flex items-center gap-2 text-xs xl:text-sm font-display font-black tracking-widest uppercase hover:text-cyan-brand transition-colors text-base-muted"
+              >
+                <link.icon className="w-4 h-4 text-cyan-brand/85" />
+                <span>{link.label}</span>
+              </a>
+            ))}
+          </nav>
+
+          {/* Action Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            {/* Eco Mode Toggle */}
+            <button
+              onClick={() => togglePerformanceMode()}
+              title={performanceMode ? 'Eco Mode: ON (Battery & GPU Saver active)' : 'Eco Mode: OFF (High Fidelity active)'}
+              aria-label="Toggle Performance Eco Mode"
+              className={`w-10 h-10 rounded-xl glass border flex items-center justify-center transition-all duration-300 ${performanceMode
+                  ? 'border-emerald-500/30 text-emerald-500 bg-emerald-500/10 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                  : 'border-base text-cyan-brand hover:border-cyan-brand/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                }`}
+            >
+              {performanceMode ? <ZapOff className="w-5 h-5" /> : <Zap className="w-5 h-5 animate-pulse" />}
+            </button>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle Theme"
+              className="w-10 h-10 rounded-xl glass border border-base flex items-center justify-center text-base-strong hover:border-cyan-brand/50 transition-colors"
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+
+            <a
+              href="#contact"
+              className="btn-primary btn-slide flex items-center gap-2 select-none cursor-pointer font-black"
+            >
+              <span className="btn-slide-text-wrapper">
+                <span className="btn-slide-text" data-text="Start Project">Start Project</span>
+              </span>
+            </a>
           </div>
-        </button>
+
+          {/* Mobile Actions */}
+          <div className="flex lg:hidden items-center gap-3">
+            {/* Mobile Eco Mode Toggle */}
+            <button
+              onClick={() => togglePerformanceMode()}
+              aria-label="Toggle Performance Eco Mode"
+              className={`w-9 h-9 rounded-lg glass border flex items-center justify-center transition-all duration-300 ${performanceMode
+                  ? 'border-emerald-500/30 text-emerald-500 bg-emerald-500/10'
+                  : 'border-base text-cyan-brand'
+                }`}
+            >
+              {performanceMode ? <ZapOff className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+            </button>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle Theme"
+              className="w-9 h-9 rounded-lg glass border border-base flex items-center justify-center text-base-strong"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+              className="w-9 h-9 rounded-lg glass border border-base flex items-center justify-center text-base-strong"
+            >
+              {mobileMenuOpen ? <XIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
       </div>
-    </nav>
+
+      {/* Flush Full-Width Mobile Menu Panel */}
+      <div
+        className={`absolute top-full left-0 right-0 bg-white dark:bg-[#07070d] border-b border-slate-200 dark:border-slate-800/80 transition-all duration-300 lg:hidden flex flex-col shadow-2xl ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+          }`}
+      >
+        <div className="flex flex-col py-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 text-sm font-display font-black tracking-widest uppercase hover:text-cyan-brand transition-colors text-base-strong py-4 px-6 border-b border-slate-100 dark:border-slate-900/50 last:border-none"
+            >
+              <link.icon className="w-4 h-4 text-cyan-brand" />
+              <span>{link.label}</span>
+            </a>
+          ))}
+          <div className="px-6 py-4">
+            <a
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary btn-slide w-full text-center py-3.5 justify-center select-none cursor-pointer font-black flex items-center gap-2"
+            >
+              <span className="btn-slide-text-wrapper">
+                <span className="btn-slide-text" data-text="Start Project">Start Project</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }
+

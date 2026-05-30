@@ -1,80 +1,60 @@
 import { useEffect, useState } from 'react';
 import logoImg from '../../images/logo.jpg';
-import './Loader.css';
-
-const TOTAL_BLOCKS = 22;
-const TOTAL_DURATION = 1800; // ms — full progress fill
 
 export default function Loader() {
-  const [progress, setProgress] = useState(0);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    // Lock the page so the user can't scroll while loading
-    const html = document.documentElement;
-    const body = document.body;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
-    html.style.overflow = 'hidden';
-    body.style.overflow = 'hidden';
+    // 1. Force the page to always scroll to top on mount
     window.scrollTo(0, 0);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
 
-    const start = performance.now();
-    let raf;
-    const tick = (now) => {
-      const p = Math.min(1, (now - start) / TOTAL_DURATION);
-      setProgress(p);
-      if (p < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        setTimeout(() => {
-          // Make sure we're at the very top, then release scroll
-          window.scrollTo(0, 0);
-          html.style.overflow = prevHtmlOverflow;
-          body.style.overflow = prevBodyOverflow;
-          // Tell GSAP/Lenis to recalc now that the page is interactive
-          window.dispatchEvent(new Event('fl-loader-done'));
-          setHidden(true);
-        }, 350);
-      }
+    // 2. Lock body and root HTML scroll to prevent any scrolling in the background
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    // 3. Keep scroll locked to (0,0) in case browser triggers auto-scroll restores
+    const preventScroll = () => {
+      window.scrollTo(0, 0);
     };
-    raf = requestAnimationFrame(tick);
+    window.addEventListener('scroll', preventScroll);
+
+    const t = setTimeout(() => {
+      setHidden(true);
+
+      // 4. Clean up scroll locks
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      window.removeEventListener('scroll', preventScroll);
+      window.scrollTo(0, 0);
+
+      // Dispatch custom event to notify App that loader is finished
+      window.dispatchEvent(new CustomEvent('fl-loader-done'));
+    }, 1200);
+
     return () => {
-      cancelAnimationFrame(raf);
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
+      clearTimeout(t);
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      window.removeEventListener('scroll', preventScroll);
     };
   }, []);
 
-  const filled = Math.floor(progress * TOTAL_BLOCKS);
-  const pct = Math.round(progress * 100);
-
   return (
-    <div className={`hud-loader${hidden ? ' hud-loader--hidden' : ''}`} aria-hidden={hidden}>
-      <div className="hud-loader__grid" aria-hidden />
-
-      <div className="hud-loader__panel">
-        <div className="hud-loader__row hud-loader__row--text">
-          <div className="hud-loader__logo">
-            <img src={logoImg} alt="" />
-          </div>
-          <div className="hud-loader__label">
-            <span>INITIALIZING...</span>
-            <span className="hud-loader__pct">{pct}%</span>
-          </div>
-        </div>
-
-        <div className="hud-loader__row hud-loader__row--bar">
-          {Array.from({ length: TOTAL_BLOCKS }).map((_, i) => {
-            let state = 'empty';
-            if (i < filled) state = 'full';
-            else if (i === filled) state = 'partial';
-            return (
-              <span key={i} className={`hud-loader__block hud-loader__block--${state}`} />
-            );
-          })}
-        </div>
-      </div>
+    <div className={`loader${hidden ? ' hidden' : ''}`} aria-hidden={hidden}>
+      <img 
+        src={logoImg} 
+        alt="Future Leaders Logo" 
+        className="w-16 h-16 rounded-2xl object-cover mb-2 border border-base shadow-glow-cyan animate-pulse flex-shrink-0" 
+      />
+      <div className="loader-logo">FUTURE LEADERS</div>
+      <div className="loader-bar" />
+      <div className="font-display text-xs text-base-faint tracking-[0.4em]">INITIALIZING WEB3 PROTOCOL</div>
     </div>
   );
 }
+

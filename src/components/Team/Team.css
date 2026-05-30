@@ -1,7 +1,0 @@
-/* Operators visual transitions */
-.clip-reveal {
-  will-change: clip-path, transform;
-}
-.clip-hidden {
-  will-change: clip-path, transform;
-}
