@@ -9,15 +9,15 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative py-24 sm:py-32 px-5 sm:px-8 lg:px-12 bg-transparent overflow-hidden">
-      
+
       {/* Background glowing highlights */}
       <div className="absolute top-[20%] left-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(122,92,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
       <div className="absolute bottom-[20%] right-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,217,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
 
       <div className="max-w-[1500px] mx-auto relative z-10">
-        
+
         {/* Premium Light-Grey Glassmorphic Card Container */}
-        <div 
+        <div
           className="reveal relative overflow-hidden bg-slate-100/95 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 rounded-[3rem] p-8 sm:p-16 lg:p-20 shadow-[0_30px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_30px_70px_-10px_rgba(0,0,0,0.6)]"
         >
           {/* Subtle Internal Glow Spots */}
@@ -27,19 +27,19 @@ export default function Contact() {
 
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Column: Premium Text & Discuss Button */}
             <div className="lg:col-span-7 flex flex-col items-start text-left relative z-10">
               <span className="badge mb-6 select-none">
                 <span className="badge-dot" style={{ background: 'var(--cyan-accent)' }} />
                 Get In Touch
               </span>
-              
+
               <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-base-strong uppercase tracking-tight leading-[1.1] mb-6 select-none">
                 Let's Build Something <br className="hidden sm:inline" />
                 <span className="text-gradient font-black">That Gets Noticed</span>
               </h2>
-              
+
               <p className="text-base-soft text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-xl select-none">
                 From KOL campaigns to developer support, tell us what you're building and we'll create the right strategy.
               </p>
@@ -50,7 +50,7 @@ export default function Contact() {
                 className="border-2 border-cyan-brand text-cyan-brand hover:bg-cyan-brand hover:text-slate-950 hover:shadow-[0_0_35px_rgba(0,217,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 font-display font-black text-sm sm:text-base uppercase tracking-widest px-8 sm:px-10 py-4 rounded-2xl cursor-pointer select-none flex items-center gap-3 group btn-slide"
               >
                 <span className="btn-slide-text-wrapper">
-                  <span className="btn-slide-text" data-text="Discuss The Project">Discuss The Project</span>
+                  <span className="btn-slide-text" data-text="Discuss Your Project">Discuss Your Project</span>
                 </span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 shrink-0 z-10" />
               </button>

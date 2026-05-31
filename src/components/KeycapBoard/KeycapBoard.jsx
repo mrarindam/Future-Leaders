@@ -74,7 +74,7 @@ function Keycap({ char, color, initX, initY, initRotate, initScale, mousePos, se
       let targetRot = initRotate;
       let depthTarget = 0;
       const activeRadius = 220; // Expanded active zone for organic feedback
-      
+
       if (distance < activeRadius && mousePos.active) {
         const factor = (activeRadius - distance) / activeRadius; // 0 to 1
 
@@ -94,14 +94,14 @@ function Keycap({ char, color, initX, initY, initRotate, initScale, mousePos, se
           depthTarget = factor * 0.75;
         }
       }
-      
+
       // Automatically float/drift (idle organic movement)
       p.phase += p.driftSpeed;
       const driftX = Math.sin(p.phase) * 7;
       const driftY = Math.cos(p.phase * 1.3) * 7;
       const targetPixelX = initialPixelX + forceX + driftX;
       const targetPixelY = initialPixelY + forceY + driftY;
-      
+
       // Positioning physics
       const k = 0.07;
       const d = 0.83;
@@ -109,19 +109,19 @@ function Keycap({ char, color, initX, initY, initRotate, initScale, mousePos, se
       p.vy = (p.vy + (targetPixelY - p.y) * k) * d;
       p.x += p.vx;
       p.y += p.vy;
-      
+
       // Rotation physics
       const kRot = 0.04;
       const dRot = 0.82;
       p.vRotate = (p.vRotate + (targetRot - p.rotate) * kRot) * dRot;
       p.rotate += p.vRotate;
-      
+
       // Compress/depth physics (makes it feel like mechanical keys compressing!)
       const kDepth = 0.12;
       const dDepth = 0.78;
       p.vDepth = (p.vDepth + (depthTarget - p.depth) * kDepth) * dDepth;
       p.depth += p.vDepth;
-      
+
       // Animate translate & rotation
       el.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${p.rotate}deg) scale(${initScale})`;
 
@@ -152,16 +152,16 @@ function Keycap({ char, color, initX, initY, initRotate, initScale, mousePos, se
   // Eco Mode positioning style vs Physics positioning style
   const inlineStyle = performanceMode
     ? {
-        left: `${initX}%`,
-        top: `${initY}%`,
-        transform: `translate(-50%, -50%) rotate(${initRotate}deg) scale(${initScale})`,
-        touchAction: 'none',
-      }
+      left: `${initX}%`,
+      top: `${initY}%`,
+      transform: `translate(-50%, -50%) rotate(${initRotate}deg) scale(${initScale})`,
+      touchAction: 'none',
+    }
     : {
-        left: 0,
-        top: 0,
-        touchAction: 'none',
-      };
+      left: 0,
+      top: 0,
+      touchAction: 'none',
+    };
 
   return (
     <div
@@ -195,7 +195,6 @@ export default function KeycapBoard({ mousePos, setHoverState }) {
     { char: 'U', color: 'blue', x: 44, y: 25, rotate: 12, scale: 1.1 },
     { char: 'R', color: 'yellow', x: 57, y: 15, rotate: -10, scale: 0.95 },
     { char: 'E', color: 'orange', x: 70, y: 28, rotate: 15, scale: 1.05 },
-    { char: '</>', color: 'cream', x: 83, y: 18, rotate: -8, scale: 1.1 },
 
     // Row 2: LEADERS
     { char: 'L', color: 'green', x: 8, y: 62, rotate: 12, scale: 1 },
