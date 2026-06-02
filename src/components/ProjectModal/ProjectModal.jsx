@@ -161,7 +161,7 @@ export default function ProjectModal() {
                     <input
                       type="email"
                       required
-                      placeholder="e.g. builder@futureleaders.io"
+                      placeholder="e.g. builder@futureleaderss.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
@@ -201,7 +201,7 @@ export default function ProjectModal() {
                     <label className="text-xs font-display tracking-wider uppercase text-slate-500 dark:text-slate-400 font-bold mb-0.5">Project Link (Website/X)</label>
                     <input
                       type="url"
-                      placeholder="e.g. https://futureleaders.io"
+                      placeholder="e.g. https://futureleaderss.com"
                       value={formData.projectLink}
                       onChange={(e) => setFormData({ ...formData, projectLink: e.target.value })}
                       className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"

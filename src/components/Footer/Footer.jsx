@@ -1,3 +1,4 @@
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoImg from '../../images/logo.jpg';
 
 const Icon = {
@@ -19,6 +20,17 @@ const Icon = {
 };
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Route to the home section when a footer nav link is clicked from another page.
+  const handleAnchorClick = (e, href) => {
+    if (location.pathname !== '/') {
+      e.preventDefault();
+      navigate('/' + href); // e.g. '/#about'
+    }
+  };
+
   return (
     <footer className="relative z-10 border-t border-base" style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(10px)' }}>
       <div className="max-w-[1800px] mx-auto px-5 sm:px-8 lg:px-12 py-14">
@@ -34,7 +46,7 @@ export default function Footer() {
             <p className="font-display text-xs tracking-[0.3em] text-base-faint mb-4 uppercase select-none">Navigate</p>
             <ul className="space-y-2 text-sm">
               {[['About', '#about'], ['Services', '#services'], ['Why Us', '#why'], ['Team', '#team'], ['FAQ', '#faq']].map(([l, h]) => (
-                <li key={h}><a className="text-base-muted hover:text-cyan-brand transition-colors" href={h}>{l}</a></li>
+                <li key={h}><a className="text-base-muted hover:text-cyan-brand transition-colors" href={h} onClick={(e) => handleAnchorClick(e, h)}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -56,9 +68,7 @@ export default function Footer() {
         <div className="pt-6 border-t border-base flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-base-faint select-none">
           <p>© {new Date().getFullYear()} Future Leaders. All rights reserved.</p>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-base-muted transition">Terms</a>
-            <a href="#" className="hover:text-base-muted transition">Privacy</a>
-            <a href="#" className="hover:text-base-muted transition">Community Notice</a>
+            <Link to="/privacy-policy" className="hover:text-cyan-brand transition-colors">Privacy Policy</Link>
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import {
   Zap,
   ZapOff
 } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import navLogoImg from '../../images/navLogo.webp';
 import { usePerformance } from '../../context/PerformanceContext.jsx';
 
@@ -21,6 +22,19 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const { performanceMode, togglePerformanceMode } = usePerformance();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Nav links point to in-page sections (#services, etc). When we're on another
+  // route (e.g. the Privacy Policy page), intercept the click, route to home,
+  // then let App scroll to the target section. On home, native smooth-scroll runs.
+  const handleAnchorClick = (e, href) => {
+    if (location.pathname !== '/') {
+      e.preventDefault();
+      navigate('/' + href); // e.g. '/#services'
+    }
+    setMobileMenuOpen(false);
+  };
 
   // Load and apply theme
   useEffect(() => {
@@ -80,7 +94,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center select-none">
+          <a href="#home" onClick={(e) => handleAnchorClick(e, '#home')} className="flex items-center select-none">
             <img
               src={navLogoImg}
               alt="Future Leaders Logo"
@@ -94,6 +108,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleAnchorClick(e, link.href)}
                 className="flex items-center gap-2 text-xs xl:text-sm font-display font-black tracking-widest uppercase hover:text-cyan-brand transition-colors text-base-muted"
               >
                 <link.icon className="w-4 h-4 text-cyan-brand/85" />
@@ -128,6 +143,7 @@ export default function Navbar() {
 
             <a
               href="#contact"
+              onClick={(e) => handleAnchorClick(e, '#contact')}
               className="btn-primary btn-slide flex items-center gap-2 select-none cursor-pointer font-black"
             >
               <span className="btn-slide-text-wrapper">
@@ -181,7 +197,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleAnchorClick(e, link.href)}
               className="flex items-center gap-3 text-sm font-display font-black tracking-widest uppercase hover:text-cyan-brand transition-colors text-base-strong py-4 px-6 border-b border-slate-100 dark:border-slate-900/50 last:border-none"
             >
               <link.icon className="w-4 h-4 text-cyan-brand" />
@@ -191,7 +207,7 @@ export default function Navbar() {
           <div className="px-6 py-4">
             <a
               href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleAnchorClick(e, '#contact')}
               className="btn-primary btn-slide w-full text-center py-3.5 justify-center select-none cursor-pointer font-black flex items-center gap-2"
             >
               <span className="btn-slide-text-wrapper">
