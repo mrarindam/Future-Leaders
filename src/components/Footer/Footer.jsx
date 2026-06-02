@@ -11,6 +11,11 @@ const Icon = {
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   ),
+  Telegram: (props) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.55-1.1.55l.4-5.56 10.1-9.13c.44-.39-.1-.61-.68-.22L6.27 13.06l-5.4-1.69c-1.17-.37-1.2-1.17.25-1.73l21.1-8.13c.98-.36 1.83.22 1.51 1.78z" />
+    </svg>
+  ),
 };
 
 export default function Footer() {
@@ -41,6 +46,9 @@ export default function Footer() {
               </a>
               <a href="https://x.com/0Futureleaders" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-11 h-11 rounded-xl glass border border-base flex items-center justify-center transition-all hover:border-cyan-brand/50 hover:scale-105">
                 <Icon.X className="w-4 h-4 text-base-muted" />
+              </a>
+              <a href="https://t.me/Futureleaderss0" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="w-11 h-11 rounded-xl glass border border-base flex items-center justify-center transition-all hover:border-cyan-brand/50 hover:scale-105">
+                <Icon.Telegram className="w-4 h-4 text-base-muted" />
               </a>
             </div>
           </div>
