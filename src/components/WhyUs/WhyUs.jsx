@@ -1,25 +1,26 @@
-import fastImg from '../../images/whyus/fast.webp';
-import teamImg from '../../images/whyus/team.webp';
-import shieldImg from '../../images/whyus/shield.webp';
-import transparencyImg from '../../images/whyus/transperency.webp';
+import { Zap, Network, ShieldCheck, Eye } from 'lucide-react';
 
 export default function WhyUs() {
   const items = [
     {
-      img: fastImg,
-      title: 'Fast Engagement'
+      icon: Zap,
+      title: 'Fast Engagement',
+      color: 'cyan'
     },
     {
-      img: teamImg,
-      title: 'Strong Community Network'
+      icon: Network,
+      title: 'Strong Community Network',
+      color: 'purple'
     },
     {
-      img: shieldImg,
-      title: 'Trusted Community'
+      icon: ShieldCheck,
+      title: 'Trusted Community',
+      color: 'cyan'
     },
     {
-      img: transparencyImg,
-      title: 'Maximum Transparency'
+      icon: Eye,
+      title: 'Maximum Transparency',
+      color: 'purple'
     }
   ];
 
@@ -37,32 +38,52 @@ export default function WhyUs() {
           </p>
         </div>
 
-        {/* 4-Card Responsive Grid - Image and Title only */}
+        {/* 4-Card Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item, idx) => (
-            <div
-              key={item.title}
-              className={`reveal ${idx % 4 === 1 ? 'reveal-d1' : idx % 4 === 2 ? 'reveal-d2' : idx % 4 === 3 ? 'reveal-d3' : ''} relative overflow-hidden glass rounded-3xl p-8 h-[240px] flex flex-col items-center justify-center text-center group cursor-pointer hover:scale-[1.02] hover:shadow-glow transition-all duration-300`}
-              style={{ borderColor: 'var(--border)' }}
-            >
-              {/* Glowing Background Accent */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-white/[0.01] pointer-events-none" />
+          {items.map((item, idx) => {
+            const IconComponent = item.icon;
+            const accentColor = item.color === 'cyan' ? 'var(--cyan-accent)' : 'var(--purple-accent)';
+            const hoverBorder = item.color === 'cyan' ? 'hover:border-cyan-500/30' : 'hover:border-purple-500/30';
 
-              {/* 3D Glass Asset Image */}
-              <div className="w-28 h-28 flex items-center justify-center mb-5 transition-transform duration-500 group-hover:scale-110 pointer-events-none">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(122,92,255,0.25)]"
+            return (
+              <div
+                key={item.title}
+                className={`reveal ${idx % 4 === 1 ? 'reveal-d1' : idx % 4 === 2 ? 'reveal-d2' : idx % 4 === 3 ? 'reveal-d3' : ''} relative overflow-hidden glass rounded-3xl p-8 h-[240px] flex flex-col items-center justify-center text-center group cursor-pointer hover:scale-[1.03] hover:shadow-glow transition-all duration-300 ${hoverBorder}`}
+                style={{ borderColor: 'var(--border)' }}
+              >
+                {/* Glowing Background Accent */}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-br from-transparent to-white/[0.01] pointer-events-none" 
                 />
-              </div>
+                <div 
+                  className="absolute bottom-[-50px] w-32 h-32 rounded-full blur-[60px] opacity-10 transition-all duration-500 group-hover:opacity-30"
+                  style={{ background: accentColor }}
+                />
 
-              {/* Title only */}
-              <h3 className="font-display font-black text-base sm:text-lg text-base-strong leading-tight uppercase tracking-wide group-hover:text-gradient transition-all duration-300 select-none">
-                {item.title}
-              </h3>
-            </div>
-          ))}
+                {/* Professional Glowing Icon Container */}
+                <div 
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center border border-white/5 bg-white/5 mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                  style={{ 
+                    boxShadow: `inset 0 0 16px rgba(255,255,255,0.02)`,
+                    borderColor: `rgba(255,255,255,0.08)`
+                  }}
+                >
+                  <IconComponent 
+                    className="w-8 h-8 transition-all duration-300" 
+                    style={{ 
+                      color: accentColor,
+                      filter: `drop-shadow(0 0 6px ${accentColor})`
+                    }}
+                  />
+                </div>
+
+                {/* Title */}
+                <h3 className="font-display font-black text-lg sm:text-xl text-base-strong leading-tight uppercase tracking-wider group-hover:text-gradient transition-all duration-300 select-none">
+                  {item.title}
+                </h3>
+              </div>
+            );
+          })}
         </div>
 
       </div>

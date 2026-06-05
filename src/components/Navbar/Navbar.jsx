@@ -121,9 +121,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Flush Full-Width Mobile Menu Panel */}
       <div
-        className={`absolute top-full left-0 right-0 bg-[#050505] border-b border-white/10 transition-all duration-300 lg:hidden flex flex-col shadow-2xl ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
+        className={`absolute top-full left-0 right-0 bg-[#050505] border-b border-white/10 transition-all duration-300 lg:hidden flex flex-col shadow-2xl ${mobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
       >
         <div className="flex flex-col py-3">
