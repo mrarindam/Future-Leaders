@@ -31,10 +31,6 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="relative py-24 sm:py-32 px-5 sm:px-8 lg:px-12 bg-transparent overflow-hidden">
-      {/* Decorative orb */}
-      <div className="absolute top-[20%] left-[-150px] w-[400px] h-[400px] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(0,217,255,0.05) 0%, transparent 70%)', filter: 'blur(60px)' }}
-      />
 
       <div className="max-w-4xl mx-auto relative z-10">
 
@@ -73,9 +69,9 @@ export default function FAQ() {
                 >
                   <span
                     style={{
-                      fontFamily: 'Orbitron, sans-serif',
+                      fontFamily: "'Exo 2', sans-serif",
                       fontWeight: 700,
-                      fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)',
+                      fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
                       letterSpacing: '0.02em',
                       color: 'var(--text)',
                       userSelect: 'none',
@@ -120,7 +116,7 @@ export default function FAQ() {
                     style={{
                       padding: '0 1.5rem 1.25rem 1.5rem',
                       color: 'var(--text-soft)',
-                      fontSize: '0.9rem',
+                      fontSize: '1rem',
                       lineHeight: 1.7,
                       userSelect: 'none',
                     }}

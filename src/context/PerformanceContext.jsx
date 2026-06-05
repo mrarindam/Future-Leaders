@@ -86,19 +86,17 @@ export function PerformanceProvider({ children }) {
       rafId = requestAnimationFrame(profile);
     };
 
-    // Wait until the initial loading overlay is completed to avoid loading-lag spikes
+    // Start profiler after initial rendering has settled to avoid loading-lag spikes
     const runProfiler = () => {
-      setTimeout(() => {
-        startTime = performance.now();
-        frameCount = 0;
-        rafId = requestAnimationFrame(profile);
-      }, 2000);
+      startTime = performance.now();
+      frameCount = 0;
+      rafId = requestAnimationFrame(profile);
     };
 
-    window.addEventListener('fl-loader-done', runProfiler);
+    const t = setTimeout(runProfiler, 2000);
     return () => {
       cancelAnimationFrame(rafId);
-      window.removeEventListener('fl-loader-done', runProfiler);
+      clearTimeout(t);
     };
   }, [performanceMode]);
 

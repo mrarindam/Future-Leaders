@@ -20,7 +20,7 @@ export default function Team() {
     {
       name: 'SAKUNA',
       photo: sakunaPhoto,
-      colorClass: 'text-[#00D9FF] dark:text-[#00D9FF]',
+      colorClass: 'text-white',
       role: 'Founder',
       bio: 'Visionary and strategist. Founder of the Future Leaders network and a well-known Web3 influencer',
       twitter: 'https://x.com/0Sakuna'
@@ -28,7 +28,7 @@ export default function Team() {
     {
       name: 'TOJI',
       photo: tojiPhoto,
-      colorClass: 'text-[#7A5CFF] dark:text-[#B295FF]',
+      colorClass: 'text-white',
       role: 'Co-Founder',
       bio: 'Co-Founder of Future Leaders with expertise in Web3 marketing, business development, strategic partnerships, community growth and project scaling. Specialized in connecting projects with KOLs, communities, investors and ecosystem partners to drive growth, visibility and long-term success in the Web3 space.',
       twitter: 'https://x.com/Tojizeninhc'
@@ -36,7 +36,7 @@ export default function Team() {
     {
       name: 'VIKING',
       photo: vikingPhoto,
-      colorClass: 'text-[#FF7A5C] dark:text-[#FF7A5C]',
+      colorClass: 'text-white',
       role: 'Co-Founder',
       bio: 'Web3 strategist, investor and marketing advisor specializing in community growth, brand development and strategic partnerships. As Co-Founder of FutureLeaders he helps projects scale their presence and build thriving communities across the Web3 ecosystem.',
       twitter: 'https://x.com/badviking1995'
@@ -44,7 +44,7 @@ export default function Team() {
     {
       name: 'ARINDAM',
       photo: arindamPhoto,
-      colorClass: 'text-[#FF80B7] dark:text-[#FF80B7]',
+      colorClass: 'text-white',
       role: 'MOD/DEV',
       bio: 'Full Stack Web Developer & Moderator of Future Leaders',
       twitter: 'https://x.com/ExeArindam'
@@ -56,7 +56,6 @@ export default function Team() {
       id="team"
       className="relative py-24 sm:py-32 bg-transparent text-base-strong overflow-hidden"
     >
-      <div className="absolute top-[20%] right-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,0,0,0.04)_0%,transparent_60%)] pointer-events-none filter blur-2xl dark:bg-[radial-gradient(circle,rgba(255,255,255,0.01)_0%,transparent_60%)]" />
 
       <div className="max-w-[1800px] mx-auto w-full px-5 sm:px-8 lg:px-16 relative z-10">
 

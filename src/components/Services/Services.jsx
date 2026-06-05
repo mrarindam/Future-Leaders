@@ -133,7 +133,6 @@ export default function Services() {
                   >
                     {item.num}
                   </span>
-                  <Icon.ArrowExt className="w-5 h-5 text-base-faint group-hover:text-cyan-brand transition-colors" />
                 </div>
 
                 {/* Title, Description & Bullets grouped tightly */}

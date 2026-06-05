@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Loader from './components/Loader/Loader.jsx';
 import Background from './Background.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Hero from './components/Hero/Hero.jsx';
@@ -92,7 +91,6 @@ export default function App() {
 
   return (
     <PerformanceProvider>
-      <Loader />
       <Background />
       <Navbar />
       <Routes>

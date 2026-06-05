@@ -17,19 +17,12 @@ const Icon = {
 export default function CTA() {
   return (
     <section id="cta" className="relative py-24 sm:py-32 px-5 sm:px-8 lg:px-12">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="reveal relative glass-strong holo-border rounded-3xl p-8 sm:p-16 text-center overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-40 pointer-events-none"
-            style={{
-              background: 'radial-gradient(circle at 50% 0%, rgba(0,217,255,0.25), transparent 60%), radial-gradient(circle at 50% 100%, rgba(122,92,255,0.25), transparent 60%)'
-            }}
-          />
+        <div className="reveal relative text-center">
           <div className="relative">
-            <h2 className="section-title text-4xl sm:text-5xl md:text-6xl mb-5 mt-5 leading-tight text-base-strong">
-              Join <span className="text-gradient">FUTURE LEADERS</span>
+            <h2 className="section-title text-4xl sm:text-5xl md:text-6xl mb-5 mt-5 leading-tight text-white">
+              Join FUTURE LEADERS
             </h2>
-            <p className="max-w-xl mx-auto text-base-muted text-base sm:text-lg leading-relaxed mb-10">
+            <p className="max-w-xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed mb-10">
               Build connections. Earn opportunities. Grow together. The next chapter of Web3 is community led and it starts here.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 select-none">
@@ -45,9 +38,9 @@ export default function CTA() {
                 href={DISCORD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost btn-slide inline-flex items-center gap-3 text-base !px-10 !py-5 hover:scale-105 transition-all font-bold"
+                className="group btn-ghost btn-slide inline-flex items-center gap-3 text-base !px-10 !py-5 hover:scale-105 transition-all font-bold"
               >
-                <Icon.Discord className="w-5 h-5 text-[#5865F2] shrink-0" />
+                <Icon.Discord className="w-5 h-5 text-slate-400 group-hover:text-black transition-colors shrink-0" />
                 <span className="btn-slide-text-wrapper">
                   <span className="btn-slide-text" data-text="Join the Discord">Join the Discord</span>
                 </span>
@@ -58,7 +51,7 @@ export default function CTA() {
                 href="https://x.com/0Futureleaders"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 glass border border-base rounded-full px-5 py-2.5 text-xs sm:text-sm text-base-soft hover:text-cyan-brand hover:border-cyan-brand/50 hover:scale-105 transition-all font-display tracking-widest uppercase font-bold"
+                className="inline-flex items-center gap-2 bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-xs sm:text-sm text-slate-300 hover:bg-white hover:text-black hover:border-white hover:scale-105 transition-all font-display tracking-widest uppercase font-bold"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -69,7 +62,7 @@ export default function CTA() {
                 href={TELEGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 glass border border-base rounded-full px-5 py-2.5 text-xs sm:text-sm text-base-soft hover:text-cyan-brand hover:border-cyan-brand/50 hover:scale-105 transition-all font-display tracking-widest uppercase font-bold"
+                className="inline-flex items-center gap-2 bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-xs sm:text-sm text-slate-300 hover:bg-white hover:text-black hover:border-white hover:scale-105 transition-all font-display tracking-widest uppercase font-bold"
               >
                 <Icon.Telegram className="w-4 h-4" />
                 Join Telegram
@@ -77,7 +70,6 @@ export default function CTA() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }

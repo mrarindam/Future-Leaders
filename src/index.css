@@ -11,7 +11,7 @@
 }
 
 h1 {
-  font-family: "Gravitas One", serif !important;
+  font-family: 'Exo 2', sans-serif;
 }
 
 /* ============ THEME TOKENS ============ */
@@ -56,21 +56,21 @@ html.dark {
   --border-strong: rgba(255, 255, 255, 0.14);
   --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
   --glass-strong-bg: linear-gradient(180deg, rgba(15, 15, 30, 0.7) 0%, rgba(10, 10, 18, 0.6) 100%);
-  --grid-color-a: rgba(0, 217, 255, 0.06);
-  --grid-color-b: rgba(122, 92, 255, 0.06);
-  --aurora-cyan: rgba(0, 217, 255, 0.15);
-  --aurora-purple: rgba(122, 92, 255, 0.18);
-  --aurora-pink: rgba(255, 92, 200, 0.10);
-  --cursor-glow: radial-gradient(circle, rgba(0, 217, 255, 0.18) 0%, rgba(122, 92, 255, 0.10) 35%, transparent 70%);
-  --cyan-accent: #00D9FF;
-  --purple-accent: #7A5CFF;
-  --badge-bg: rgba(0, 217, 255, 0.08);
-  --badge-border: rgba(0, 217, 255, 0.25);
-  --badge-text: #7fe7ff;
+  --grid-color-a: rgba(255, 255, 255, 0.02);
+  --grid-color-b: rgba(255, 255, 255, 0.02);
+  --aurora-cyan: transparent;
+  --aurora-purple: transparent;
+  --aurora-pink: transparent;
+  --cursor-glow: transparent;
+  --cyan-accent: #ffffff;
+  --purple-accent: #ffffff;
+  --badge-bg: rgba(255, 255, 255, 0.08);
+  --badge-border: rgba(255, 255, 255, 0.2);
+  --badge-text: #ffffff;
   --avatar-bg: #0a0a12;
-  --shadow-card: 0 20px 60px -10px rgba(0, 217, 255, 0.18);
+  --shadow-card: 0 20px 60px -10px rgba(0, 0, 0, 0.5);
   --scrollbar-track: #050505;
-  --mix-blend: screen;
+  --mix-blend: normal;
 }
 
 /* ============ BASE ============ */
@@ -141,19 +141,11 @@ body {
 }
 
 /* ============ TYPOGRAPHY ============ */
-.font-display { font-family: 'Orbitron', sans-serif; letter-spacing: 0.02em; }
+.font-display { font-family: 'Exo 2', sans-serif; letter-spacing: 0.02em; }
 .text-gradient {
-  background: linear-gradient(120deg, var(--cyan-accent) 0%, var(--purple-accent) 50%, #e15ca8 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
-  background-size: 200% auto;
-  animation: gradientShift 6s linear infinite;
+  color: #ffffff;
 }
-@keyframes gradientShift {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-html.dark .text-glow { text-shadow: 0 0 20px rgba(0, 217, 255, 0.45), 0 0 40px rgba(122, 92, 255, 0.25); }
+html.dark .text-glow { text-shadow: none; }
 
 /* ============ GLASS CARDS ============ */
 .glass {
@@ -204,41 +196,53 @@ html.dark .text-glow { text-shadow: 0 0 20px rgba(0, 217, 255, 0.45), 0 0 40px r
 /* ============ BUTTONS ============ */
 .btn-primary {
   position: relative;
-  background: linear-gradient(120deg, var(--cyan-accent) 0%, var(--purple-accent) 100%);
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   font-weight: 700;
   border-radius: 999px;
   padding: 14px 28px;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 8px 30px -8px rgba(0, 149, 212, 0.55);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
   cursor: pointer;
   overflow: hidden;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 13px;
+  border: 1.5px solid #ffffff;
+}
+html.dark .btn-primary { color: #000000; box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05); }
+.btn-primary::after {
+  display: none;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #e6e6e6;
+  color: #000000;
+  border-color: #e6e6e6;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-ghost {
+  position: relative;
+  color: #ffffff;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 13px 26px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Exo 2', sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 13px;
 }
-html.dark .btn-primary { color: #ffffff; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 8px 30px -8px rgba(0, 217, 255, 0.6); }
-.btn-primary::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.4) 50%, transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-}
-.btn-primary:hover::after { transform: translateX(100%); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15), 0 14px 40px -8px rgba(0, 217, 255, 0.85); }
-
-.btn-ghost {
-  position: relative; color: var(--text); background: var(--glass-bg);
-  border: 1px solid var(--badge-border); border-radius: 999px;
-  padding: 13px 26px; font-weight: 600; transition: all 0.3s ease;
-  cursor: pointer; backdrop-filter: blur(10px);
-  font-family: 'Orbitron', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px;
-}
 .btn-ghost:hover {
-  border-color: var(--cyan-accent);
-  box-shadow: 0 0 25px rgba(0, 217, 255, 0.35);
-  background: rgba(0, 217, 255, 0.06);
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
 }
 
 /* Premium Sliding Text Hover Effect for Buttons (Double Text / Marquee Hover) */
@@ -394,11 +398,9 @@ html.dark .btn-primary { color: #ffffff; box-shadow: 0 0 0 1px rgba(255, 255, 25
 
 /* ============ STATS ============ */
 .stat-num {
-  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-family: 'Exo 2', sans-serif; font-weight: 900;
   font-size: clamp(32px, 5vw, 56px);
-  background: linear-gradient(120deg, var(--cyan-accent), var(--purple-accent));
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(0, 217, 255, 0.18);
+  color: #ffffff;
 }
 
 /* ============ SERVICE / TILT ============ */

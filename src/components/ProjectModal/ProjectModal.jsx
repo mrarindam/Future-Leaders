@@ -97,15 +97,12 @@ export default function ProjectModal() {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', duration: 0.5 }}
             layout
-            className={`relative bg-white dark:bg-[#07070d] border border-slate-200 dark:border-purple-brand/20 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_60px_rgba(122,92,255,0.2)] rounded-[2.5rem] p-6 sm:p-10 no-scrollbar ${
+            className={`relative bg-white dark:bg-[#07070d] border border-slate-200 dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2.5rem] p-6 sm:p-10 no-scrollbar ${
               isSubmitted
                 ? 'w-full max-w-lg overflow-hidden flex flex-col items-center justify-center min-h-[480px]'
                 : 'w-full max-w-2xl max-h-[90vh] overflow-y-auto overflow-x-hidden'
             }`}
           >
-            {/* Background glowing highlights in dark mode */}
-            <div className="absolute top-[-100px] left-[-100px] w-64 h-64 bg-purple-brand/10 dark:bg-purple-brand/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-[-100px] right-[-100px] w-64 h-64 bg-cyan-brand/10 dark:bg-cyan-brand/20 rounded-full blur-3xl pointer-events-none" />
 
             {/* Close Button */}
             <button
@@ -125,7 +122,7 @@ export default function ProjectModal() {
                   <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base mt-2">
                     Fill out the form below and we will customize a growth plan for you.
                   </p>
-                </div>
+                </div>Direction
 
                 {/* Form Fields Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
@@ -138,7 +135,7 @@ export default function ProjectModal() {
                       placeholder="e.g. Future Leaders"
                       value={formData.projectName}
                       onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     />
                   </div>
 
@@ -151,7 +148,7 @@ export default function ProjectModal() {
                       placeholder="e.g. Sakuna"
                       value={formData.contactName}
                       onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     />
                   </div>
 
@@ -164,7 +161,7 @@ export default function ProjectModal() {
                       placeholder="e.g. builder@futureleaderss.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     />
                   </div>
 
@@ -174,7 +171,7 @@ export default function ProjectModal() {
                     <select
                       value={formData.contactMethod}
                       onChange={(e) => setFormData({ ...formData, contactMethod: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     >
                       <option value="Telegram" className="bg-white dark:bg-slate-950">Telegram</option>
                       <option value="Discord" className="bg-white dark:bg-slate-950">Discord</option>
@@ -192,7 +189,7 @@ export default function ProjectModal() {
                       placeholder="e.g. @0Sakuna"
                       value={formData.contactUsername}
                       onChange={(e) => setFormData({ ...formData, contactUsername: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     />
                   </div>
 
@@ -204,7 +201,7 @@ export default function ProjectModal() {
                       placeholder="e.g. https://futureleaderss.com"
                       value={formData.projectLink}
                       onChange={(e) => setFormData({ ...formData, projectLink: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     />
                   </div>
 
@@ -214,7 +211,7 @@ export default function ProjectModal() {
                     <select
                       value={formData.projectStage}
                       onChange={(e) => setFormData({ ...formData, projectStage: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     >
                       <option value="Idea/Pre-launch" className="bg-white dark:bg-slate-950">Idea / Pre-launch</option>
                       <option value="Development" className="bg-white dark:bg-slate-950">Under Development</option>
@@ -228,7 +225,7 @@ export default function ProjectModal() {
                     <select
                       value={formData.timeline}
                       onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                      className="w-full bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                     >
                       <option value="Immediate" className="bg-white dark:bg-slate-950">Immediate</option>
                       <option value="< 1 Month" className="bg-white dark:bg-slate-950">&lt; 1 Month</option>
@@ -255,11 +252,11 @@ export default function ProjectModal() {
                           key={service}
                           onClick={() => handleCheckboxChange(service)}
                           className={`p-3.5 rounded-xl border text-xs sm:text-sm font-semibold select-none cursor-pointer flex items-center gap-2.5 transition-all duration-200 ${isChecked
-                              ? 'border-purple-brand bg-purple-brand/5 dark:bg-purple-brand/10 text-purple-brand dark:text-purple-400 shadow-[0_0_15px_rgba(122,92,255,0.1)]'
+                              ? 'border-white bg-white/5 dark:bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)]'
                               : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                             }`}
                         >
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${isChecked ? 'bg-purple-brand border-purple-brand text-white' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950'
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${isChecked ? 'bg-white border-white text-black' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950'
                             }`}>
                             {isChecked && (
                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="w-2.5 h-2.5">
@@ -282,7 +279,7 @@ export default function ProjectModal() {
                     placeholder="e.g. Twitter/X, Friend, Partner community"
                     value={formData.heardAboutUs}
                     onChange={(e) => setFormData({ ...formData, heardAboutUs: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-brand/20 focus:border-purple-brand transition-all duration-200"
+                    className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white transition-all duration-200"
                   />
                 </div>
 
@@ -298,7 +295,7 @@ export default function ProjectModal() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full btn-primary py-4 rounded-xl flex items-center justify-center gap-3 text-base font-black shadow-[0_8px_30px_-8px_rgba(122,92,255,0.6)] cursor-pointer select-none disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full btn-primary py-4 rounded-xl flex items-center justify-center gap-3 text-base font-black cursor-pointer select-none disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <>
@@ -321,7 +318,7 @@ export default function ProjectModal() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="relative z-10 flex flex-col items-center justify-center text-center py-8 px-4 select-none flex-1 w-full"
               >
-                <div className="w-20 h-20 rounded-full bg-purple-brand/10 border border-purple-brand/30 flex items-center justify-center text-purple-brand mb-6 shadow-[0_0_30px_rgba(122,92,255,0.2)]">
+                <div className="w-20 h-20 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white mb-6">
                   <CheckCircle className="w-10 h-10" />
                 </div>
                 <h2 className="font-display font-black text-3xl sm:text-4xl text-gradient uppercase tracking-tight mb-4">

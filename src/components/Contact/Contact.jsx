@@ -10,28 +10,19 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-24 sm:py-32 px-5 sm:px-8 lg:px-12 bg-transparent overflow-hidden">
 
-      {/* Background glowing highlights */}
-      <div className="absolute top-[20%] left-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(122,92,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
-      <div className="absolute bottom-[20%] right-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(0,217,255,0.06)_0%,transparent_70%)] pointer-events-none filter blur-3xl z-0" />
-
       <div className="max-w-[1500px] mx-auto relative z-10">
 
-        {/* Premium Light-Grey Glassmorphic Card Container */}
+        {/* Flat Layout Container (No Floating Card/Borders/Shadows) */}
         <div
-          className="reveal relative overflow-hidden bg-slate-100/95 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 rounded-[3rem] p-8 sm:p-16 lg:p-20 shadow-[0_30px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_30px_70px_-10px_rgba(0,0,0,0.6)]"
+          className="reveal relative overflow-hidden"
         >
-          {/* Subtle Internal Glow Spots */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-brand/5 to-cyan-brand/5 pointer-events-none" />
-          <div className="absolute top-[-10%] left-[-10%] w-[300px] h-[300px] bg-cyan-brand/10 rounded-full blur-[80px] pointer-events-none" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] bg-purple-brand/10 rounded-full blur-[80px] pointer-events-none" />
-
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
             {/* Left Column: Premium Text & Discuss Button */}
             <div className="lg:col-span-7 flex flex-col items-start text-left relative z-10">
               <span className="badge mb-6 select-none">
-                <span className="badge-dot" style={{ background: 'var(--cyan-accent)' }} />
+                <span className="badge-dot" style={{ background: '#ffffff' }} />
                 Get In Touch
               </span>
 
@@ -44,10 +35,10 @@ export default function Contact() {
                 From KOL campaigns to developer support, tell us what you're building and we'll create the right strategy.
               </p>
 
-              {/* Cyan Outline Pill Button (Opening Form) */}
+              {/* White Outline Pill Button (Opening Form) */}
               <button
                 onClick={handleOpenModal}
-                className="border-2 border-cyan-brand text-cyan-brand hover:bg-cyan-brand hover:text-slate-950 hover:shadow-[0_0_35px_rgba(0,217,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 font-display font-black text-sm sm:text-base uppercase tracking-widest px-8 sm:px-10 py-4 rounded-2xl cursor-pointer select-none flex items-center gap-3 group btn-slide"
+                className="border-2 border-white text-white hover:bg-white hover:text-slate-950 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 font-display font-black text-sm sm:text-base uppercase tracking-widest px-8 sm:px-10 py-4 rounded-2xl cursor-pointer select-none flex items-center gap-3 group btn-slide"
               >
                 <span className="btn-slide-text-wrapper">
                   <span className="btn-slide-text" data-text="Discuss Your Project">Discuss Your Project</span>
@@ -64,7 +55,7 @@ export default function Contact() {
                   <img
                     src={discussImg}
                     alt="Discuss the project illustration"
-                    className="w-full max-w-[480px] h-auto object-contain filter drop-shadow-[0_20px_50px_rgba(122,92,255,0.18)] transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1 select-none pointer-events-none"
+                    className="w-full max-w-[480px] h-auto object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.18)] transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1 select-none pointer-events-none"
                   />
                 </div>
               </div>

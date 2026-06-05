@@ -1,5 +1,4 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import logoImg from '../../images/logo.jpg';
 
 const Icon = {
   Discord: (props) => (
@@ -32,44 +31,90 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative z-10 border-t border-base" style={{ background: 'var(--glass-bg)', backdropFilter: 'blur(10px)' }}>
-      <div className="max-w-[1800px] mx-auto px-5 sm:px-8 lg:px-12 py-14">
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
-          <div>
+    <footer className="relative z-10 bg-[#030303] text-white border-t border-white/10">
+      <div className="max-w-[1800px] mx-auto px-5 sm:px-8 lg:px-16 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-16">
+          {/* Logo & Description */}
+          <div className="md:col-span-4 lg:col-span-5 flex flex-col items-start">
             <div className="flex items-center gap-3 mb-4 select-none">
-              <img src={logoImg} alt="Future Leaders Logo" className="w-9 h-9 rounded-xl object-cover flex-shrink-0 border border-base" />
-              <span className="font-display font-black tracking-widest text-base-strong">FUTURE <span className="text-gradient">LEADERS</span></span>
+              <div className="flex items-center justify-center w-8 h-8 bg-[#121212] border border-white/10 rounded-lg p-1 shrink-0">
+                <img
+                  src="/logo.webp"
+                  alt="Future Leaders Logo"
+                  className="w-full h-full object-contain rounded-[4px]"
+                />
+              </div>
+              <span className="font-display font-black tracking-widest text-xl text-white uppercase">FUTURE LEADERS</span>
             </div>
-            <p className="text-base-soft text-sm leading-relaxed">Building Web3 communities and scaling NFT ecosystems through engagement, raids, and strategic alpha.</p>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+              Building Web3 communities and scaling NFT ecosystems through engagement, raids, and strategic alpha.
+            </p>
+            {/* Social Icons (Simple, Borderless, Grayscale) */}
+            <div className="flex items-center gap-5 select-none">
+              <a href="https://discord.gg/SdP2sAD8zT" target="_blank" rel="noopener noreferrer" aria-label="Discord" className="text-slate-400 hover:text-white transition-colors">
+                <Icon.Discord className="w-5 h-5" />
+              </a>
+              <a href="https://x.com/0Futureleaders" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-slate-400 hover:text-white transition-colors">
+                <Icon.X className="w-4 h-4" />
+              </a>
+              <a href="https://t.me/Futureleaderss0" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-slate-400 hover:text-white transition-colors">
+                <Icon.Telegram className="w-5 h-5" />
+              </a>
+            </div>
           </div>
-          <div>
-            <p className="font-display text-xs tracking-[0.3em] text-base-faint mb-4 uppercase select-none">Navigate</p>
-            <ul className="space-y-2 text-sm">
-              {[['About', '#about'], ['Services', '#services'], ['Why Us', '#why'], ['Team', '#team'], ['FAQ', '#faq']].map(([l, h]) => (
-                <li key={h}><a className="text-base-muted hover:text-cyan-brand transition-colors" href={h} onClick={(e) => handleAnchorClick(e, h)}>{l}</a></li>
+
+          {/* Column 1: Navigation */}
+          <div className="md:col-span-2 flex flex-col">
+            <p className="font-display text-base lg:text-lg font-bold text-white mb-4 select-none">Navigation</p>
+            <ul className="space-y-3 text-base">
+              {[
+                ['Services', '#services'],
+                ['Why Us', '#why'],
+                ['Team', '#team'],
+                ['FAQ', '#faq']
+              ].map(([l, h]) => (
+                <li key={h}>
+                  <a className="text-slate-400 hover:text-white transition-colors font-medium" href={h} onClick={(e) => handleAnchorClick(e, h)}>
+                    {l}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
-          <div>
-            <p className="font-display text-xs tracking-[0.3em] text-base-faint mb-4 uppercase select-none">Connect</p>
-            <div className="flex gap-3 mb-5">
-              <a href="https://discord.gg/SdP2sAD8zT" target="_blank" rel="noopener noreferrer" aria-label="Discord" className="w-11 h-11 rounded-xl glass border border-base flex items-center justify-center transition-all hover:border-cyan-brand/50 hover:scale-105">
-                <Icon.Discord className="w-4 h-4 text-base-muted" />
-              </a>
-              <a href="https://x.com/0Futureleaders" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-11 h-11 rounded-xl glass border border-base flex items-center justify-center transition-all hover:border-cyan-brand/50 hover:scale-105">
-                <Icon.X className="w-4 h-4 text-base-muted" />
-              </a>
-              <a href="https://t.me/Futureleaderss0" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="w-11 h-11 rounded-xl glass border border-base flex items-center justify-center transition-all hover:border-cyan-brand/50 hover:scale-105">
-                <Icon.Telegram className="w-4 h-4 text-base-muted" />
-              </a>
-            </div>
+
+          {/* Column 2: Company */}
+          <div className="md:col-span-2 flex flex-col">
+            <p className="font-display text-base lg:text-lg font-bold text-white mb-4 select-none">Company</p>
+            <ul className="space-y-3 text-base">
+              {[
+                ['About Us', '#about'],
+                ['Contact', '#contact']
+              ].map(([l, h]) => (
+                <li key={h}>
+                  <a className="text-slate-400 hover:text-white transition-colors font-medium" href={h} onClick={(e) => handleAnchorClick(e, h)}>
+                    {l}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Information */}
+          <div className="md:col-span-4 lg:col-span-3 flex flex-col">
+            <p className="font-display text-base lg:text-lg font-bold text-white mb-4 select-none">Information</p>
+            <ul className="space-y-3 text-base">
+              <li>
+                <Link to="/privacy-policy" className="text-slate-400 hover:text-white transition-colors font-medium">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="pt-6 border-t border-base flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-base-faint select-none">
+
+        {/* Bottom copyright */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 select-none">
           <p>© {new Date().getFullYear()} Future Leaders. All rights reserved.</p>
-          <div className="flex gap-5">
-            <Link to="/privacy-policy" className="hover:text-cyan-brand transition-colors">Privacy Policy</Link>
-          </div>
         </div>
       </div>
     </footer>
