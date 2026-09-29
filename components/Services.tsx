@@ -1,0 +1,141 @@
+"use client";
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, CheckCircle2, ArrowRight } from "lucide-react";
+import ServiceCard from "./ServiceCard";
+import Logo from "./Logo";
+import { SERVICES, ServiceItem } from "@/lib/constants";
+
+interface ServicesProps {
+  onOpenBooking: () => void;
+}
+
+export default function Services({ onOpenBooking }: ServicesProps) {
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+
+  return (
+    <section
+      id="services"
+      className="relative min-h-screen flex items-center justify-center py-20 sm:py-24 bg-[#080B14] text-white overflow-hidden"
+    >
+      {/* Ambient Dark Web3 Background Glows */}
+      <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden flex items-center justify-center">
+        <div className="w-[900px] h-[500px] bg-gradient-to-r from-purple-900/20 via-indigo-900/20 to-blue-900/20 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Section Header - Single line on PC/laptop */}
+        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4"
+          >
+            Solutions Built for Web3 Growth
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-base sm:text-lg text-slate-400 font-normal leading-relaxed"
+          >
+            From KOL marketing and community growth to partnerships, moderation, and technical support, we provide the resources Web3 projects need to grow and scale.
+          </motion.p>
+        </div>
+
+        {/* 6 Services Grid (3 cols on desktop, 2 on tablet, 1 on mobile) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {SERVICES.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              index={index}
+              onSelect={(svc) => setSelectedService(svc)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Service Detail Modal for deeper exploration (Dark Theme) */}
+      <AnimatePresence>
+        {selectedService && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+            onClick={() => setSelectedService(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg bg-[#0E1322] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 text-white"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedService(null)}
+                className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Modal Content */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center p-2.5 bg-slate-800 border border-slate-700"
+                >
+                  <Logo variant="monogram" color="white" size="sm" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-white">
+                    {selectedService.title}
+                  </h3>
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-800/60">
+                    {selectedService.stats}
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                {selectedService.description}
+              </p>
+
+              <div className="space-y-3 mb-8">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  What&apos;s Included
+                </div>
+                {selectedService.features?.map((feat, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+                    <CheckCircle2 size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    setSelectedService(null);
+                    onOpenBooking();
+                  }}
+                  className="flex-1 py-3 px-5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>Book Consultation for this Service</span>
+                  <ArrowRight size={15} />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
