@@ -67,7 +67,7 @@ export default function ContactCTA({ onOpenBooking }: ContactCTAProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 w-full max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 w-full max-w-6xl mx-auto"
         >
           {/* 1. Schedule a Call (Primary Accent) */}
           <RadialRevealButton
@@ -159,6 +159,40 @@ export default function ContactCTA({ onOpenBooking }: ContactCTAProps) {
                   </div>
                   <div className={`text-xs whitespace-nowrap mt-0.5 ${isHover ? "text-slate-100" : "text-slate-500"}`}>
                     Connect with our community
+                  </div>
+                </div>
+              </div>
+            )}
+          </RadialRevealButton>
+
+          {/* 4. Telegram */}
+          <RadialRevealButton
+            href={SOCIAL_LINKS.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="custom"
+            borderRadius="1rem"
+            fill="#ffffff"
+            hoverFill="#0088cc"
+            textColor="#0f172a"
+            hoverTextColor="#ffffff"
+            borderWidth={1}
+            borderColor="#e2e8f0"
+            className="w-full text-left shadow-[0_6px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_26px_rgba(0,136,204,0.25)]"
+          >
+            {(isHover) => (
+              <div className="flex items-center gap-3.5 p-4 sm:p-5 w-full">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${isHover ? "bg-white/20 text-white" : "bg-[#0088cc]/10 text-[#0088cc]"}`}>
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className={`text-base font-bold tracking-tight whitespace-nowrap ${isHover ? "text-white" : "text-slate-900"}`}>
+                    Telegram
+                  </div>
+                  <div className={`text-xs whitespace-nowrap mt-0.5 ${isHover ? "text-slate-100" : "text-slate-500"}`}>
+                    Chat with our team
                   </div>
                 </div>
               </div>
