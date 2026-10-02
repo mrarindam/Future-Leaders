@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { NAV_LINKS, SERVICES, SOCIAL_LINKS } from "@/lib/constants";
+import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -16,9 +16,9 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12">
           {/* Brand Info */}
-          <div className="md:col-span-5 flex flex-col items-start">
+          <div className="max-w-md flex flex-col items-start">
             <a href="#home" className="mb-4 inline-block">
               <Logo color="white" size="md" />
             </a>
@@ -67,11 +67,11 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="md:col-span-3">
+          <div className="flex flex-col md:items-end">
             <h4 className="text-xs font-bold text-white tracking-wider uppercase mb-4">
               Navigation
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="flex flex-wrap md:flex-col gap-x-6 gap-y-2.5 md:items-end">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
                   <a
@@ -79,25 +79,6 @@ export default function Footer() {
                     className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services Links */}
-          <div className="md:col-span-4">
-            <h4 className="text-xs font-bold text-white tracking-wider uppercase mb-4">
-              Services
-            </h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {SERVICES.map((svc) => (
-                <li key={svc.id}>
-                  <a
-                    href="#services"
-                    className="text-sm text-slate-400 hover:text-white transition-colors line-clamp-1"
-                  >
-                    {svc.title}
                   </a>
                 </li>
               ))}
