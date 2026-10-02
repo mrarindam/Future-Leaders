@@ -49,13 +49,13 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "kol-marketing",
     title: "KOL Marketing",
-    description: "Connect with our private network of 700+ KOLs across different regions, countries, and Web3 niches to reach the right audience.",
+    description: "Connect with our private network of 500+ KOLs across different regions, countries, and Web3 niches to reach the right audience.",
     accentColor: "#7c3aed",
     bgTint: "bg-purple-50/50 hover:bg-purple-50/80",
     borderTint: "border-purple-100 hover:border-purple-300",
     iconBg: "bg-purple-100/90 text-purple-600",
     iconColor: "text-purple-600",
-    stats: "700+ KOL Network",
+    stats: "500+ KOL Network",
     features: [
       "Vetted tier-1 Web3 creators and crypto alphas",
       "Campaign strategy, tracking & attribution",
