@@ -15,6 +15,7 @@ html {
   color: var(--foreground);
   background-color: var(--background);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  scrollbar-gutter: stable;
 }
 
 body {

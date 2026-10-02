@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2 } from "lucide-react";
 import Logo from "./Logo";
@@ -13,15 +14,24 @@ interface ServicesProps {
 
 export default function Services({ onOpenBooking }: ServicesProps) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Prevent background scroll and page jump/glitch when modal is open
   useEffect(() => {
     if (selectedService) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
       document.body.style.overflow = "hidden";
     } else {
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "";
     }
     return () => {
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "";
     };
   }, [selectedService]);
@@ -78,69 +88,72 @@ export default function Services({ onOpenBooking }: ServicesProps) {
         />
       </div>
 
-      {/* Service Detail Modal for deeper exploration (Dark Theme) */}
-      <AnimatePresence>
-        {selectedService && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            onClick={() => setSelectedService(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 16 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 16 }}
-              transition={{ duration: 0.2 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg bg-[#0E1322] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 text-white"
-            >
-              {/* Close Button */}
-              <button
+      {/* Service Detail Modal Portaled to Body (Zero glitching / flicker) */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedService && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
                 onClick={() => setSelectedService(null)}
-                className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-                aria-label="Close details modal"
               >
-                <X size={20} />
-              </button>
-
-              {/* Modal Content */}
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center p-2.5 bg-slate-800 border border-slate-700"
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0, y: 14 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0, y: 14 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-lg bg-[#0E1322] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 text-white"
                 >
-                  <Logo variant="monogram" color="white" size="sm" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-extrabold text-white">
-                    {selectedService.title}
-                  </h3>
-                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-800/60">
-                    {selectedService.stats}
-                  </span>
-                </div>
-              </div>
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setSelectedService(null)}
+                    className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                    aria-label="Close details modal"
+                  >
+                    <X size={20} />
+                  </button>
 
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                {selectedService.description}
-              </p>
-
-              <div className="space-y-3 mb-8">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  What&apos;s Included
-                </div>
-                {selectedService.features?.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                    <CheckCircle2 size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                    <span>{feat}</span>
+                  {/* Modal Content */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center p-2.5 bg-slate-800 border border-slate-700">
+                      <Logo variant="monogram" color="white" size="sm" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-extrabold text-white">
+                        {selectedService.title}
+                      </h3>
+                      <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-950 text-purple-300 border border-purple-800/60">
+                        {selectedService.stats}
+                      </span>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
+
+                  <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                    {selectedService.description}
+                  </p>
+
+                  <div className="space-y-3">
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                      What&apos;s Included
+                    </div>
+                    {selectedService.features?.map((feat, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+                        <CheckCircle2 size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 }

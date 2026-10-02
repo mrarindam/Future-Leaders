@@ -57,11 +57,13 @@ export default function ServicesInteractiveGrid({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-              onMouseEnter={() => setHoveredId(service.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              whileHover={{ y: -6, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              onHoverStart={() => setHoveredId(service.id)}
+              onHoverEnd={() => setHoveredId(null)}
               onClick={() => onSelect(service)}
-              className="relative flex flex-col justify-between p-7 sm:p-8 rounded-[24px] cursor-pointer transition-all duration-300 overflow-hidden will-change-transform"
+              className="relative flex flex-col justify-between p-7 sm:p-8 rounded-[24px] cursor-pointer overflow-hidden transition-colors duration-200"
               style={{
                 backgroundColor: isHovered ? "#12182c" : "#0c101e",
                 borderColor: isHovered ? accent : "rgba(51, 65, 85, 0.45)",
@@ -70,7 +72,6 @@ export default function ServicesInteractiveGrid({
                 boxShadow: isHovered
                   ? `0 20px 45px -12px ${accent}50, 0 0 28px ${accent}30`
                   : "0 10px 25px -10px rgba(0,0,0,0.5)",
-                transform: isHovered ? "translateY(-6px) scale(1.02)" : "translateY(0) scale(1)",
                 zIndex: isHovered ? 10 : 1,
               }}
             >
