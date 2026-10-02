@@ -213,7 +213,6 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             {/* Bottom Actions & Social Connect */}
             <div className="relative z-10 p-6 sm:p-8 bg-slate-50/90 border-t border-slate-100 flex flex-col gap-4">
               <RadialRevealButton
-                href="#contact"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   if (onOpenBooking) onOpenBooking();
@@ -225,7 +224,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 hoverTextColor="#ffffff"
                 className="w-full py-4 text-center text-base font-semibold shadow-lg shadow-purple-500/25"
               >
-                <span>Schedule a Call &amp; Contact Us</span>
+                <span>Schedule a Call</span>
               </RadialRevealButton>
 
               <div className="flex items-center justify-between pt-1">
