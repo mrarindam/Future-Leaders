@@ -195,40 +195,27 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
               </button>
             </div>
 
-            {/* Main Navigation Links (Clean, Spacious, Staggered) */}
-            <div className="relative z-10 flex-1 flex flex-col justify-center px-7 sm:px-10 py-8 space-y-2">
-              <div className="text-[11px] font-bold uppercase tracking-widest text-purple-600 mb-3">
-                Menu Navigation
-              </div>
-
+            {/* Main Navigation Links (Clean & Minimal) */}
+            <div className="relative z-10 flex-1 flex flex-col justify-center px-7 sm:px-10 py-8 space-y-3">
               {NAV_LINKS.map((link, idx) => {
                 const sectionId = link.href.replace("#", "");
                 const isActive = activeSection === sectionId;
-                const indexNum = `0${idx + 1}`;
 
                 return (
                   <motion.a
                     key={link.label}
                     href={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * idx, duration: 0.3 }}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * idx, duration: 0.25 }}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`group flex items-center justify-between py-3 px-4 rounded-2xl transition-all ${
+                    className={`py-3.5 px-5 rounded-2xl text-2xl font-bold tracking-tight transition-all text-left ${
                       isActive
-                        ? "bg-purple-50 text-purple-600 font-bold"
-                        : "text-slate-800 hover:text-purple-600 hover:bg-slate-50 font-semibold"
+                        ? "bg-purple-50 text-purple-600 shadow-sm"
+                        : "text-slate-800 hover:text-purple-600 hover:bg-slate-50/80"
                     }`}
                   >
-                    <div className="flex items-center gap-4">
-                      <span className={`text-xs font-mono font-bold ${isActive ? "text-purple-600" : "text-slate-400 group-hover:text-purple-500"}`}>
-                        {indexNum}
-                      </span>
-                      <span className="text-2xl tracking-tight">{link.label}</span>
-                    </div>
-                    <span className={`text-xl transition-transform duration-200 ${isActive ? "text-purple-600 translate-x-1" : "text-slate-300 group-hover:text-purple-600 group-hover:translate-x-1"}`}>
-                      →
-                    </span>
+                    {link.label}
                   </motion.a>
                 );
               })}
