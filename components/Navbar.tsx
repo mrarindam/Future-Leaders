@@ -137,24 +137,13 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
-              <RadialRevealButton
-                href="#contact"
-                variant="primary"
-                fill="#7c3aed"
-                hoverFill="#090D16"
-                textColor="#ffffff"
-                hoverTextColor="#ffffff"
-                className="px-3.5 py-1.5 text-xs font-semibold shadow-sm"
-              >
-                <span>Contact Us</span>
-              </RadialRevealButton>
+            <div className="flex md:hidden items-center">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-slate-700 hover:text-slate-950 rounded-full hover:bg-slate-100 transition-colors"
+                className="p-2.5 text-slate-700 hover:text-slate-950 rounded-full hover:bg-slate-100 transition-colors"
                 aria-label="Open navigation menu"
               >
-                <Menu size={20} />
+                <Menu size={22} />
               </button>
             </div>
           </nav>

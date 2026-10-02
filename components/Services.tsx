@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, ArrowRight } from "lucide-react";
-import ServiceCard from "./ServiceCard";
 import Logo from "./Logo";
 import RadialRevealButton from "./RadialRevealButton";
+import ServicesInteractiveGrid from "./ServicesInteractiveGrid";
 import { SERVICES, ServiceItem } from "@/lib/constants";
 
 interface ServicesProps {
@@ -20,9 +20,20 @@ export default function Services({ onOpenBooking }: ServicesProps) {
       id="services"
       className="relative min-h-screen flex items-center justify-center py-20 sm:py-24 bg-[#080B14] text-white overflow-hidden"
     >
-      {/* Ambient Dark Web3 Background Glows */}
+      {/* Ambient Dark Web3 Background Glows & High-Tech Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden flex items-center justify-center">
         <div className="w-[900px] h-[500px] bg-gradient-to-r from-purple-900/20 via-indigo-900/20 to-blue-900/20 rounded-full blur-3xl" />
+        {/* Futuristic Subtle Background Grid Pattern */}
+        <div className="absolute inset-0 opacity-15 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_60%,transparent_100%)]">
+          <svg className="w-full h-full" width="100%" height="100%">
+            <defs>
+              <pattern id="services-bg-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+                <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(148, 163, 184, 0.25)" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#services-bg-grid)" />
+          </svg>
+        </div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -49,17 +60,11 @@ export default function Services({ onOpenBooking }: ServicesProps) {
           </motion.p>
         </div>
 
-        {/* 6 Services Grid (3 cols on desktop, 2 on tablet, 1 on mobile) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {SERVICES.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-              onSelect={(svc) => setSelectedService(svc)}
-            />
-          ))}
-        </div>
+        {/* 6 Services Interactive 3D Perspective Grid */}
+        <ServicesInteractiveGrid
+          services={SERVICES}
+          onSelect={(svc) => setSelectedService(svc)}
+        />
       </div>
 
       {/* Service Detail Modal for deeper exploration (Dark Theme) */}
