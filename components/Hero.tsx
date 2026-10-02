@@ -2,11 +2,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Calendar } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import HeroVisual from "./HeroVisual";
 
 interface HeroProps {
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
 }
 
 export default function Hero({ onOpenBooking }: HeroProps) {
@@ -82,18 +82,6 @@ export default function Hero({ onOpenBooking }: HeroProps) {
                   className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </a>
-
-              {/* Secondary: Let's Talk */}
-              <button
-                onClick={onOpenBooking}
-                className="group inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-slate-800 bg-white border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:bg-slate-50 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300"
-              >
-                <span>Let&apos;s Talk</span>
-                <Calendar
-                  size={18}
-                  className="text-slate-500 group-hover:text-purple-600 transition-colors"
-                />
-              </button>
             </motion.div>
           </motion.div>
 

@@ -7,7 +7,7 @@ import Logo from "./Logo";
 import { NAV_LINKS } from "@/lib/constants";
 
 interface NavbarProps {
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
 }
 
 export default function Navbar({ onOpenBooking }: NavbarProps) {
@@ -81,7 +81,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
 
             {/* Center: Desktop Navigation Links (Clean & Simple) */}
             <div className="hidden md:flex items-center gap-1 lg:gap-2">
-              {NAV_LINKS.map((link) => {
+              {NAV_LINKS.filter((link) => link.href !== "#contact").map((link) => {
                 const sectionId = link.href.replace("#", "");
                 const isActive = activeSection === sectionId;
 
@@ -108,26 +108,26 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
               })}
             </div>
 
-            {/* Right: "Let's Talk" CTA Button */}
+            {/* Right: "Contact Us" CTA Button */}
             <div className="hidden md:flex items-center gap-3">
-              <motion.button
+              <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={onOpenBooking}
+                href="#contact"
                 className="relative inline-flex items-center justify-center px-5 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 shadow-[0_4px_16px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_22px_rgba(124,58,237,0.45)] transition-all duration-300"
               >
-                <span>Let&apos;s Talk</span>
-              </motion.button>
+                <span>Contact Us</span>
+              </motion.a>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
-              <button
-                onClick={onOpenBooking}
+              <a
+                href="#contact"
                 className="px-3.5 py-1.5 text-xs font-semibold text-white rounded-full bg-purple-600 shadow-sm"
               >
-                Talk
-              </button>
+                Contact Us
+              </a>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 text-slate-700 hover:text-slate-950 rounded-full hover:bg-slate-100 transition-colors"
@@ -151,7 +151,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             className="fixed inset-x-4 top-20 z-40 md:hidden bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-3xl p-6 shadow-2xl"
           >
             <div className="flex flex-col space-y-2">
-              {NAV_LINKS.map((link) => {
+              {NAV_LINKS.filter((link) => link.href !== "#contact").map((link) => {
                 const sectionId = link.href.replace("#", "");
                 const isActive = activeSection === sectionId;
 
@@ -171,15 +171,13 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 );
               })}
               <div className="pt-3 border-t border-slate-100">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenBooking();
-                  }}
-                  className="w-full py-3 text-center text-sm font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full py-3 text-center text-sm font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
                 >
-                  Let&apos;s Talk
-                </button>
+                  Contact Us
+                </a>
               </div>
             </div>
           </motion.div>
