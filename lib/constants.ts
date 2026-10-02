@@ -21,6 +21,7 @@ export interface TeamMember {
     linkedin?: string;
     twitter?: string;
     discord?: string;
+    telegram?: string;
   };
 }
 
@@ -190,6 +191,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     borderColor: "border-purple-500/40",
     socials: {
       twitter: "https://x.com/0Sakuna",
+      telegram: "https://t.me/SAKUNA17",
       discord: "https://discord.com/users/1330573065234546749",
     },
   },
@@ -201,6 +203,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     borderColor: "border-cyan-500/40",
     socials: {
       twitter: "https://x.com/Tojizeninhc",
+      telegram: "https://t.me/Tojizeninhc",
       discord: "https://discord.com/users/1223692374790901932",
     },
   },
@@ -212,6 +215,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     borderColor: "border-emerald-500/40",
     socials: {
       twitter: "https://x.com/badviking1995",
+      telegram: "https://t.me/badviking1995",
       discord: "https://discord.com/users/518837405600448513",
     },
   },
@@ -223,6 +227,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     borderColor: "border-pink-500/40",
     socials: {
       twitter: "https://x.com/Anas1BTC",
+      telegram: "https://t.me/Anas1btc",
       discord: "https://discord.com/users/767831622837338163",
     },
   },
@@ -234,6 +239,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     borderColor: "border-blue-500/40",
     socials: {
       twitter: "https://x.com/ExeArindam",
+      telegram: "https://t.me/MrxArindam",
       discord: "https://discord.com/users/1056180691987091467",
     },
   },
