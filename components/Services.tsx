@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, ArrowRight } from "lucide-react";
+import { X, CheckCircle2 } from "lucide-react";
 import Logo from "./Logo";
-import RadialRevealButton from "./RadialRevealButton";
 import ServicesInteractiveGrid from "./ServicesInteractiveGrid";
 import { SERVICES, ServiceItem } from "@/lib/constants";
 
@@ -14,6 +13,18 @@ interface ServicesProps {
 
 export default function Services({ onOpenBooking }: ServicesProps) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+
+  // Prevent background scroll and page jump/glitch when modal is open
+  useEffect(() => {
+    if (selectedService) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedService]);
 
   return (
     <section
@@ -74,13 +85,13 @@ export default function Services({ onOpenBooking }: ServicesProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
             onClick={() => setSelectedService(null)}
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              exit={{ scale: 0.95, opacity: 0, y: 16 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-lg bg-[#0E1322] rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 text-white"
@@ -89,6 +100,7 @@ export default function Services({ onOpenBooking }: ServicesProps) {
               <button
                 onClick={() => setSelectedService(null)}
                 className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                aria-label="Close details modal"
               >
                 <X size={20} />
               </button>
@@ -124,27 +136,6 @@ export default function Services({ onOpenBooking }: ServicesProps) {
                     <span>{feat}</span>
                   </div>
                 ))}
-              </div>
-
-              <div className="flex items-center gap-3">
-                <RadialRevealButton
-                  onClick={() => {
-                    setSelectedService(null);
-                    onOpenBooking();
-                  }}
-                  variant="primary"
-                  fill="#7c3aed"
-                  hoverFill="#ffffff"
-                  textColor="#ffffff"
-                  hoverTextColor="#0f172a"
-                  rounded={100}
-                  className="w-full flex-1 shadow-lg shadow-purple-500/25"
-                >
-                  <div className="flex items-center justify-center gap-2 py-3 px-5 text-sm font-semibold tracking-wide">
-                    <span>Book Consultation for this Service</span>
-                    <ArrowRight size={15} />
-                  </div>
-                </RadialRevealButton>
               </div>
             </motion.div>
           </motion.div>
