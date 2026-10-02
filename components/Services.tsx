@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, ArrowRight } from "lucide-react";
 import ServiceCard from "./ServiceCard";
 import Logo from "./Logo";
+import RadialRevealButton from "./RadialRevealButton";
 import { SERVICES, ServiceItem } from "@/lib/constants";
 
 interface ServicesProps {
@@ -121,16 +122,24 @@ export default function Services({ onOpenBooking }: ServicesProps) {
               </div>
 
               <div className="flex items-center gap-3">
-                <button
+                <RadialRevealButton
                   onClick={() => {
                     setSelectedService(null);
                     onOpenBooking();
                   }}
-                  className="flex-1 py-3 px-5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 shadow-md flex items-center justify-center gap-2"
+                  variant="primary"
+                  fill="#7c3aed"
+                  hoverFill="#ffffff"
+                  textColor="#ffffff"
+                  hoverTextColor="#0f172a"
+                  rounded={100}
+                  className="w-full flex-1 shadow-lg shadow-purple-500/25"
                 >
-                  <span>Book Consultation for this Service</span>
-                  <ArrowRight size={15} />
-                </button>
+                  <div className="flex items-center justify-center gap-2 py-3 px-5 text-sm font-semibold tracking-wide">
+                    <span>Book Consultation for this Service</span>
+                    <ArrowRight size={15} />
+                  </div>
+                </RadialRevealButton>
               </div>
             </motion.div>
           </motion.div>

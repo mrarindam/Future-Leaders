@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import HeroVisual from "./HeroVisual";
 
+import RadialRevealButton from "./RadialRevealButton";
+
 interface HeroProps {
   onOpenBooking?: () => void;
 }
@@ -72,16 +74,23 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               className="flex flex-wrap items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
             >
               {/* Primary: Explore Services */}
-              <a
+              <RadialRevealButton
                 href="#services"
-                className="group inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 shadow-[0_10px_25px_rgba(124,58,237,0.35)] hover:shadow-[0_14px_32px_rgba(124,58,237,0.48)] hover:-translate-y-0.5 transition-all duration-300"
+                variant="primary"
+                fill="#7c3aed"
+                hoverFill="#080B14"
+                textColor="#ffffff"
+                hoverTextColor="#ffffff"
+                className="px-7 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-semibold shadow-[0_10px_25px_rgba(124,58,237,0.35)] hover:shadow-[0_14px_32px_rgba(124,58,237,0.48)] hover:-translate-y-0.5 transition-all duration-300"
               >
-                <span>Explore Services</span>
-                <ArrowUpRight
-                  size={18}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </a>
+                <span className="flex items-center justify-center gap-2.5">
+                  <span>Explore Services</span>
+                  <ArrowUpRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-purple-200 group-hover:text-purple-300"
+                  />
+                </span>
+              </RadialRevealButton>
             </motion.div>
           </motion.div>
 

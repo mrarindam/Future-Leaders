@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import { NAV_LINKS } from "@/lib/constants";
+import RadialRevealButton from "./RadialRevealButton";
 
 interface NavbarProps {
   onOpenBooking?: () => void;
@@ -110,24 +111,32 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
 
             {/* Right: "Contact Us" CTA Button */}
             <div className="hidden md:flex items-center gap-3">
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+              <RadialRevealButton
                 href="#contact"
-                className="relative inline-flex items-center justify-center px-5 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 shadow-[0_4px_16px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_22px_rgba(124,58,237,0.45)] transition-all duration-300"
+                variant="primary"
+                fill="#7c3aed"
+                hoverFill="#090D16"
+                textColor="#ffffff"
+                hoverTextColor="#ffffff"
+                className="px-5 py-2 text-sm font-semibold shadow-[0_4px_16px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_22px_rgba(124,58,237,0.45)]"
               >
                 <span>Contact Us</span>
-              </motion.a>
+              </RadialRevealButton>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
-              <a
+              <RadialRevealButton
                 href="#contact"
-                className="px-3.5 py-1.5 text-xs font-semibold text-white rounded-full bg-purple-600 shadow-sm"
+                variant="primary"
+                fill="#7c3aed"
+                hoverFill="#090D16"
+                textColor="#ffffff"
+                hoverTextColor="#ffffff"
+                className="px-3.5 py-1.5 text-xs font-semibold shadow-sm"
               >
-                Contact Us
-              </a>
+                <span>Contact Us</span>
+              </RadialRevealButton>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 text-slate-700 hover:text-slate-950 rounded-full hover:bg-slate-100 transition-colors"
@@ -171,13 +180,18 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 );
               })}
               <div className="pt-3 border-t border-slate-100">
-                <a
+                <RadialRevealButton
                   href="#contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full py-3 text-center text-sm font-semibold text-white rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
+                  variant="primary"
+                  fill="#7c3aed"
+                  hoverFill="#090D16"
+                  textColor="#ffffff"
+                  hoverTextColor="#ffffff"
+                  className="w-full py-3 text-center text-sm font-semibold shadow-md"
                 >
-                  Contact Us
-                </a>
+                  <span>Contact Us</span>
+                </RadialRevealButton>
               </div>
             </div>
           </motion.div>

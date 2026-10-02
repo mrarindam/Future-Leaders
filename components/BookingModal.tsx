@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, ExternalLink, Loader2 } from "lucide-react";
+import RadialRevealButton from "./RadialRevealButton";
 import { CALENDAR_LINK } from "@/lib/constants";
 
 interface BookingModalProps {
@@ -57,16 +58,26 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
               {/* Action Buttons: Open external & Close */}
               <div className="flex items-center gap-2">
-                <a
+                <RadialRevealButton
                   href={CALENDAR_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-neutral-300 hover:text-white hover:bg-neutral-800/80 border border-white/15 hover:border-white/25 transition-all"
-                  title="Open calendar in new tab"
+                  variant="custom"
+                  fill="#1a1a1a"
+                  hoverFill="#7c3aed"
+                  textColor="#d4d4d4"
+                  hoverTextColor="#ffffff"
+                  borderWidth={1}
+                  borderColor="rgba(255,255,255,0.15)"
+                  rounded={100}
+                  className="hidden sm:inline-flex"
+                  ariaLabel="Open calendar in new tab"
                 >
-                  <span>Open in full tab</span>
-                  <ExternalLink size={13} />
-                </a>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold">
+                    <span>Open in full tab</span>
+                    <ExternalLink size={13} />
+                  </div>
+                </RadialRevealButton>
 
                 <button
                   onClick={onClose}
