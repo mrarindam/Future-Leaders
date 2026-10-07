@@ -86,6 +86,7 @@ function edRootStyle(style) {
     containerType: 'size',
     isolation: 'isolate',
     backgroundColor: '#151412',
+    willChange: 'transform',
     ...style,
   };
 }
@@ -146,30 +147,42 @@ function useEditorialLoader(rootRef, sceneRef, optsRef) {
       const dt = last < 0 ? 0 : Math.min(0.05, (now - last) / 1000);
       last = now;
       t += dt;
-      const revealS = reduced ? 0.4 : sceneRef.current.revealS;
+
+      // Ensure progress steadily counts up to 100% over loadS without getting stuck at 79%
       if (revealAt < 0) {
-        const target = onCanvas ? curve(t) : Math.min(curve(t), edRealLoad());
-        progress = target >= 1 ? 1 : Math.min(target, progress + dt * 1.5);
-        if (progress >= 1 && t >= loadS) revealAt = t;
+        const target = curve(t);
+        progress = t >= loadS ? 1 : Math.min(1, Math.max(progress, target));
+        if (progress >= 1 && t >= loadS) {
+          progress = 1;
+          revealAt = t;
+        }
       }
       draw(dt);
-      if (revealAt >= 0 && t - revealAt >= revealS) {
-        if (onCanvas) {
-          if (t - revealAt >= revealS + ED_HOLD_S) {
-            restart();
-            draw(0);
+
+      // Once 100% is reached, hold briefly so user sees '100%', then softly slide up to reveal Hero Home
+      if (revealAt >= 0 && !finished) {
+        const holdS = reduced ? 0.12 : 0.28;
+        if (t - revealAt >= holdS) {
+          if (onCanvas) {
+            if (t - revealAt >= holdS + ED_HOLD_S) {
+              restart();
+              draw(0);
+            }
+          } else {
+            finished = true;
+            const slideDuration = reduced ? 0.45 : 0.85;
+            root.style.transition = `transform ${slideDuration}s cubic-bezier(0.76, 0, 0.24, 1), opacity ${slideDuration}s ease`;
+            root.style.transform = 'translateY(-100%)';
+            root.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.85)';
+            root.style.pointerEvents = 'none';
+
+            window.setTimeout(() => {
+              root.style.visibility = 'hidden';
+              root.style.display = 'none';
+              optsRef.current.onComplete && optsRef.current.onComplete();
+            }, slideDuration * 1000);
+            return;
           }
-        } else {
-          finished = true;
-          root.style.transition = `opacity ${ED_FADE_S}s ease`;
-          root.style.opacity = '0';
-          root.style.pointerEvents = 'none';
-          window.setTimeout(() => {
-            root.style.visibility = 'hidden';
-            root.style.display = 'none';
-            optsRef.current.onComplete && optsRef.current.onComplete();
-          }, ED_FADE_S * 1000);
-          return;
         }
       }
       raf = requestAnimationFrame(tick);
@@ -250,7 +263,7 @@ export default function TilesLoader(props = {}) {
 
     const safetyTimer = setTimeout(() => {
       handleDone();
-    }, 2800);
+    }, 8000);
 
     return () => {
       clearTimeout(safetyTimer);
@@ -312,10 +325,10 @@ export default function TilesLoader(props = {}) {
         tile.style.transform = `scale(${1 - e})`;
       }
       const num = numRef.current;
-      const digits = String(Math.round(progress * 100));
+      const digits = String(Math.min(100, Math.round(progress * 100)));
       if (num && num.textContent !== digits) num.textContent = digits;
       const label = countRef.current;
-      if (label) label.style.opacity = String(edOutCubic(edSeg(t, 0.1, 0.8)) * (1 - edSeg(reveal, 0, 0.15)));
+      if (label) label.style.opacity = String(edOutCubic(edSeg(t, 0.1, 0.6)));
     },
   };
 
