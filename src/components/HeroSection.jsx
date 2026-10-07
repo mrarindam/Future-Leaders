@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScanGridButton from './ScanGridButton';
+import PurpleWireframeRoom from './PurpleWireframeRoom';
 
 const HERO_SUBHEAD_TEXT =
   'Future Leaders is a Web3 growth network with 500+ KOLs, creators and industry professionals across global markets, helping projects grow through KOL marketing, community management, social campaigns, Discord moderation, collaborations, technical support and strategic growth.';
@@ -99,14 +100,9 @@ export default function HeroSection({ onExplore, isLoaded }) {
 
   return (
     <section id="hero-section" className="page-section section-hero">
-      {/* Full-bleed background video */}
+      {/* Full-bleed 3D Wireframe Room background */}
       <div className="bg" aria-hidden="true">
-        <video className="bg-video" autoPlay muted loop playsInline>
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4"
-            type="video/mp4"
-          />
-        </video>
+        <PurpleWireframeRoom />
       </div>
 
       {/* Hero Content */}
