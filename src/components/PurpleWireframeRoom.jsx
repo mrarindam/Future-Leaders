@@ -391,7 +391,10 @@ function __OriginkitBase_PurpleWireframeRoom(props) {
             const vy = (adv.vanishY / 100) * H + hover.y * parallax * 0.6;
             const hW = Math.max(0.02, (adv.horizonY - adv.vanishY) / 100);
             const horizonPx = vy + hW * H;
-            const Wc = (Math.max(0.02, (adv.vanishX - adv.wallX) / 100) * W) / H;
+            const isMobileOrTablet = W <= 1024;
+            // On mobile/tablet, prevent narrow portrait screens from squeezing particles into an overcrowded center strip
+            const wallSpreadWidth = isMobileOrTablet ? Math.max(W, H * 0.72) : W;
+            const Wc = (Math.max(0.02, (adv.vanishX - adv.wallX) / 100) * wallSpreadWidth) / H;
 
             const hazeOp = clamp01(adv.hazeOpacity / 100);
             if (hazeOp > 0) {
@@ -698,13 +701,49 @@ function __OriginkitBase_PurpleWireframeRoom(props) {
             const dt = last < 0 ? 0 : Math.min(1 / 20, (now - last) / 1000);
             last = now;
             const p = propsRef.current;
-            const adv = { ...ADVANCED_DEFAULTS, ...(p.advanced ?? {}) };
+            const isMobile = W <= 768;
+            const isTablet = W > 768 && W <= 1024;
+
+            // Responsive overrides for mobile and tablet: spacious, elegant, no tangled lines
+            let responsiveOverrides = {};
+            if (isMobile) {
+                responsiveOverrides = {
+                    glyphCount: 1100,
+                    curtainShare: 28,
+                    curtainColumns: 10,
+                    wallDots: 360,
+                    linkOpacity: 0, // no tangled lines on mobile
+                    glyphSize: 7.5,
+                    glyphLine: 6.5,
+                    radialStretch: 60,
+                    floorDotChance: 45,
+                };
+            } else if (isTablet) {
+                responsiveOverrides = {
+                    glyphCount: 2100,
+                    curtainShare: 36,
+                    curtainColumns: 14,
+                    wallDots: 650,
+                    linkOpacity: 8,
+                    glyphSize: 8.2,
+                    glyphLine: 7.5,
+                    radialStretch: 70,
+                    floorDotChance: 60,
+                };
+            }
+
+            const adv = {
+                ...ADVANCED_DEFAULTS,
+                ...(p.advanced ?? {}),
+                ...responsiveOverrides,
+            };
             const hv = hoverRef.current;
             hv.t += (hv.target - hv.t) * Math.min(1, dt * 6);
             const rate = (Math.max(0, p.speed ?? 50) / 50) * (1 + hv.t * 0.35);
             const v = adv.depthPerCycle / 100 / Math.max(0.05, adv.cycleMs / 1000);
             if (!isStatic && !(mq && mq.matches)) travel += dt * v * rate;
-            const dens = Math.max(1, p.density ?? 70);
+            const baseDensity = p.density ?? 70;
+            const dens = Math.max(1, isMobile ? Math.min(baseDensity, 46) : isTablet ? Math.min(baseDensity, 58) : baseDensity);
             const key = `${adv.seed}|${dens}|${adv.glyphCount}|${adv.curtainShare}|${adv.curtainColumns}|${adv.wallDots}|${adv.footBand}`;
             if (!field || field.key !== key)
                 field = buildField(
