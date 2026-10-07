@@ -196,7 +196,7 @@ export default function ContactSection() {
         <div className="contact-cards-grid" ref={cardsGridRef}>
           {/* Card 1: Discord */}
           <a
-            href="https://discord.gg/futureleaders"
+            href="https://discord.gg/Tbd96eh4Tq"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card card-discord"
@@ -228,7 +228,7 @@ export default function ContactSection() {
 
           {/* Card 2: X / Twitter */}
           <a
-            href="https://x.com/FutureLeaders"
+            href="https://x.com/0Futureleaders"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card card-x"
@@ -260,7 +260,7 @@ export default function ContactSection() {
 
           {/* Card 3: Telegram */}
           <a
-            href="https://t.me/FutureLeaders"
+            href="https://t.me/Futureleaderss0"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card card-telegram"
