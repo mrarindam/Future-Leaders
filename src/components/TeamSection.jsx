@@ -35,6 +35,18 @@ const TEAM_MEMBERS = [
     bio: 'Viking commands marketing momentum and creator partnerships across global Web3 markets, connecting projects directly with Tier-1 KOLs and engaged audiences.',
   },
   {
+    name: 'Black Mamba',
+    role: 'Co-Founder',
+    telegram: 'https://t.me/FutureLeaders_FL',
+    discord: 'https://discord.gg/Tbd96eh4Tq',
+    twitter: 'https://x.com/0xFutureLeaders',
+    image: '/assets/team/blackmamba-full.webp',
+    avatar: '/assets/team/blackmamba-avatar.webp',
+    avatarPosition: 'center 20%',
+    bgColor: '#232832',
+    bio: 'With 6 years in Web3 and experience working with 500+ projects, Black Mamba focuses on business development, strategic partnerships, and campaign strategy. Leveraging a strong network across Web3 to bring new projects to the agency, build partnerships, and design marketing campaigns that help projects reach the right audience and drive growth.',
+  },
+  {
     name: 'Anas',
     role: 'Operations Lead',
     telegram: 'https://t.me/Anas1btc',
@@ -182,7 +194,7 @@ export default function TeamSection() {
 
         {/* Bottom Zone: Avatar Picker + Meta Footer */}
         <div className="team-bottom-zone">
-          {/* Avatar Picker Row (5 Core Leaders) */}
+          {/* Avatar Picker Row (Core Leaders) */}
           <div className="team-avatar-row" role="tablist" aria-label="Team member avatars">
             {TEAM_MEMBERS.map((member, index) => (
               <button
@@ -197,7 +209,11 @@ export default function TeamSection() {
               >
                 <span className="team-avatar-dot" aria-hidden="true" />
                 <span className="team-avatar-thumb">
-                  <img src={member.avatar} alt={member.name} />
+                  <img
+                    src={member.avatar}
+                    alt={member.name}
+                    style={member.avatarPosition ? { objectPosition: member.avatarPosition } : undefined}
+                  />
                 </span>
               </button>
             ))}
