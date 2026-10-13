@@ -478,6 +478,8 @@ export default function ServicesSection() {
                       </div>
                     </div>
 
+                    <p className="quantum-back-desc">{activeSrv.desc}</p>
+
                     <div className="quantum-back-deliverables-wrap">
                       <span className="quantum-deliv-heading">KEY DELIVERABLES:</span>
                       <ul className="quantum-back-deliverables">

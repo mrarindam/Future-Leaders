@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import CollabForm from './CollabForm.jsx';
 
 const CONTACT_SUBHEAD_WORDS = [
   'Partner', 'with', 'us', 'to', 'take', 'your', 'project', 'to', 'the', 'next', 'level.',
@@ -290,6 +291,9 @@ export default function ContactSection() {
             </div>
           </a>
         </div>
+
+        {/* Web3 Collaboration / Partnership Form */}
+        <CollabForm />
       </div>
     </section>
   );

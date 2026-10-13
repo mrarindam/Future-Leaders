@@ -156,29 +156,86 @@ export default function App() {
         }
 
         const footer = document.getElementById('footer-section');
+        const contactSec = document.getElementById('contact-section');
+        const collabForm = document.querySelector('.collab-form-container');
 
-        // Scroll down to footer from contact
-        if (e.deltaY > 0 && curIdx === 4 && footer && !isAtFooterRef.current) {
-          isAnimatingRef.current = true;
-          gsap.to(window, {
-            scrollTo: { y: footer, autoKill: false },
-            duration: 0.9,
-            ease: 'power3.inOut',
-            onComplete: () => {
-              isAtFooterRef.current = true;
-              setTimeout(() => {
-                isAnimatingRef.current = false;
-              }, 100);
-            },
-          });
+        // Handling Section 4 (Contact) Scroll Down
+        if (e.deltaY > 0 && curIdx === 4 && !isAtFooterRef.current) {
+          // Step 1: If looking at cards at top of contact section, scroll down to Collab Form
+          if (collabForm) {
+            const formTop = collabForm.getBoundingClientRect().top + window.pageYOffset - 90;
+            if (window.scrollY < formTop - 50) {
+              isAnimatingRef.current = true;
+              gsap.to(window, {
+                scrollTo: { y: formTop, autoKill: false },
+                duration: 0.85,
+                ease: 'power3.inOut',
+                onComplete: () => {
+                  setTimeout(() => {
+                    isAnimatingRef.current = false;
+                  }, 100);
+                },
+              });
+              return;
+            }
+          }
+
+          // Step 2: If already at Collab Form, scroll to Footer
+          if (footer) {
+            isAnimatingRef.current = true;
+            gsap.to(window, {
+              scrollTo: { y: footer, autoKill: false },
+              duration: 0.85,
+              ease: 'power3.inOut',
+              onComplete: () => {
+                isAtFooterRef.current = true;
+                setTimeout(() => {
+                  isAnimatingRef.current = false;
+                }, 100);
+              },
+            });
+            return;
+          }
+        }
+
+        // Handling Scroll Up from Footer
+        if (e.deltaY < 0 && isAtFooterRef.current) {
+          isAtFooterRef.current = false;
+          if (collabForm) {
+            const formTop = collabForm.getBoundingClientRect().top + window.pageYOffset - 90;
+            isAnimatingRef.current = true;
+            gsap.to(window, {
+              scrollTo: { y: formTop, autoKill: false },
+              duration: 0.85,
+              ease: 'power3.inOut',
+              onComplete: () => {
+                setTimeout(() => {
+                  isAnimatingRef.current = false;
+                }, 100);
+              },
+            });
+            return;
+          }
+          navigateToSection(4);
           return;
         }
 
-        // Scroll up from footer back to contact
-        if (e.deltaY < 0 && isAtFooterRef.current) {
-          isAtFooterRef.current = false;
-          navigateToSection(4);
-          return;
+        // Handling Scroll Up inside Contact Section: from Form back to Cards
+        if (e.deltaY < 0 && curIdx === 4 && contactSec) {
+          if (window.scrollY > contactSec.offsetTop + 50) {
+            isAnimatingRef.current = true;
+            gsap.to(window, {
+              scrollTo: { y: contactSec, autoKill: false },
+              duration: 0.85,
+              ease: 'power3.inOut',
+              onComplete: () => {
+                setTimeout(() => {
+                  isAnimatingRef.current = false;
+                }, 100);
+              },
+            });
+            return;
+          }
         }
 
         // Standard vertical transitions
