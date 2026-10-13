@@ -37,9 +37,9 @@ const TEAM_MEMBERS = [
   {
     name: 'Black Mamba',
     role: 'Co-Founder',
-    telegram: 'https://t.me/FutureLeaders_FL',
-    discord: 'https://discord.gg/Tbd96eh4Tq',
-    twitter: 'https://x.com/0xFutureLeaders',
+    telegram: 'https://t.me/blaaack_mambaa',
+    discord: 'https://discord.com/users/813146062947614810',
+    twitter: 'https://x.com/blaack_mambaa',
     image: '/assets/team/blackmamba-full.webp',
     avatar: '/assets/team/blackmamba-avatar.webp',
     avatarPosition: 'center 20%',

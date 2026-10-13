@@ -1074,9 +1074,9 @@ const TEAM_MEMBERS = [
   {
     name: "Black Mamba",
     role: "Co-Founder",
-    telegram: "https://t.me/FutureLeaders_FL",
-    discord: "https://discord.gg/Tbd96eh4Tq",
-    twitter: "https://x.com/0xFutureLeaders",
+    telegram: "https://t.me/blaaack_mambaa",
+    discord: "https://discord.com/users/813146062947614810",
+    twitter: "https://x.com/blaack_mambaa",
     image: "assets/team/blackmamba-full.webp",
     avatar: "assets/team/blackmamba-avatar.webp",
     bio: "With 6 years in Web3 and experience working with 500+ projects, Black Mamba focuses on business development, strategic partnerships, and campaign strategy. Leveraging a strong network across Web3 to bring new projects to the agency, build partnerships, and design marketing campaigns that help projects reach the right audience and drive growth."
