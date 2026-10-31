@@ -1,13 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Empowering Web3 Projects to Build, Grow &amp; Scale | Future Leaders</title>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('fl_theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <title>Future Leaders</title>
   <meta name="description"
-    content="Future Leaders is a Web3 growth network with 500+ KOLs, creators and industry professionals across global markets, helping projects grow through KOL marketing, community management, social campaigns, Discord moderation, collaborations, technical support and strategic growth." />
+    content="Empowering Web3 projects to build, grow, and scale with global KOL networks and ecosystem architecture." />
   <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Open Graph / Facebook / Discord / Telegram -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Future Leaders" />
+  <meta property="og:description"
+    content="Empowering Web3 projects to build, grow, and scale with global KOL networks and ecosystem architecture." />
+  <meta property="og:image" content="/og-image.jpeg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:site_name" content="Future Leaders" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Future Leaders" />
+  <meta name="twitter:description"
+    content="Empowering Web3 projects to build, grow, and scale with global KOL networks and ecosystem architecture." />
+  <meta name="twitter:image" content="/og-image.jpeg" />
+  <meta name="twitter:site" content="@0Futureleaders" />
+  <meta name="twitter:creator" content="@0Futureleaders" />
 
   <!-- Google Fonts: Bebas Neue, Inter (400, 500, 600) & Geist (300, 400, 500) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

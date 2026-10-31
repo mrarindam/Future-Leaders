@@ -13,15 +13,16 @@ const TEAM_MEMBERS = [
     bio: 'Sakuna sets the visual direction and strategic vision of every project. He turns rough concepts into clear, confident design languages that feel effortless yet leave a lasting impression.',
   },
   {
-    name: 'Toji',
+    name: 'Black Mamba',
     role: 'Co-Founder',
-    telegram: 'https://t.me/Tojizeninhc',
-    discord: 'https://discord.com/users/1223692374790901932',
-    twitter: 'https://x.com/Tojizeninhc',
-    image: '/assets/team/toji-full.webp',
-    avatar: '/assets/team/toji-avatar.webp',
-    bgColor: '#df1a22',
-    bio: 'Toji shapes community operations and growth mechanics. He builds active environments where members turn into brand advocates and long-term project supporters.',
+    telegram: 'https://t.me/blaaack_mambaa',
+    discord: 'https://discord.com/users/813146062947614810',
+    twitter: 'https://x.com/blaack_mambaa',
+    image: '/assets/team/blackmamba-full.webp',
+    avatar: '/assets/team/blackmamba-avatar.webp',
+    avatarPosition: 'center 20%',
+    bgColor: '#232832',
+    bio: 'With 6 years in Web3 and experience working with 500+ projects, Black Mamba focuses on business development, strategic partnerships, and campaign strategy. Leveraging a strong network across Web3 to bring new projects to the agency, build partnerships, and design marketing campaigns that help projects reach the right audience and drive growth.',
   },
   {
     name: 'Viking',
@@ -35,16 +36,15 @@ const TEAM_MEMBERS = [
     bio: 'Viking commands marketing momentum and creator partnerships across global Web3 markets, connecting projects directly with Tier-1 KOLs and engaged audiences.',
   },
   {
-    name: 'Black Mamba',
+    name: 'Toji',
     role: 'Co-Founder',
-    telegram: 'https://t.me/blaaack_mambaa',
-    discord: 'https://discord.com/users/813146062947614810',
-    twitter: 'https://x.com/blaack_mambaa',
-    image: '/assets/team/blackmamba-full.webp',
-    avatar: '/assets/team/blackmamba-avatar.webp',
-    avatarPosition: 'center 20%',
-    bgColor: '#232832',
-    bio: 'With 6 years in Web3 and experience working with 500+ projects, Black Mamba focuses on business development, strategic partnerships, and campaign strategy. Leveraging a strong network across Web3 to bring new projects to the agency, build partnerships, and design marketing campaigns that help projects reach the right audience and drive growth.',
+    telegram: 'https://t.me/Tojizeninhc',
+    discord: 'https://discord.com/users/1223692374790901932',
+    twitter: 'https://x.com/Tojizeninhc',
+    image: '/assets/team/toji-full.webp',
+    avatar: '/assets/team/toji-avatar.webp',
+    bgColor: '#df1a22',
+    bio: 'Toji shapes community operations and growth mechanics. He builds active environments where members turn into brand advocates and long-term project supporters.',
   },
   {
     name: 'Anas',
@@ -137,7 +137,9 @@ function TypewriterBio({ text, memberKey, isVisible }) {
 export default function TeamSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, y: 0 });
   const activeMember = TEAM_MEMBERS[activeIndex];
 
   useEffect(() => {
@@ -146,9 +148,7 @@ export default function TeamSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.15 }
     );
@@ -157,6 +157,41 @@ export default function TeamSection() {
     return () => observer.disconnect();
   }, []);
 
+  // Automatic member rotation (Autoplay every 4.5s when visible)
+  useEffect(() => {
+    if (!isVisible || isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % TEAM_MEMBERS.length);
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, [isVisible, isPaused]);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const diffX = touchStartRef.current.x - endX;
+    const diffY = touchStartRef.current.y - endY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      setIsPaused(true);
+      if (diffX > 0) {
+        setActiveIndex((prev) => (prev + 1) % TEAM_MEMBERS.length);
+      } else {
+        setActiveIndex((prev) => (prev - 1 + TEAM_MEMBERS.length) % TEAM_MEMBERS.length);
+      }
+      setTimeout(() => setIsPaused(false), 5000);
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -164,105 +199,131 @@ export default function TeamSection() {
       className="page-section section-team font-geist"
       aria-label="Team Members"
     >
-      {/* Full-bleed Stacked Background Portraits (5 members) */}
-      <div className="team-bg-stack" aria-hidden="true">
-        {TEAM_MEMBERS.map((m, idx) => (
-          <div
-            key={m.name}
-            className={`team-bg-slide ${activeIndex === idx ? 'active' : ''}`}
-            style={{
-              backgroundImage: `url('${m.image}')`,
-              backgroundColor: m.bgColor,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Light Dark Vignette Gradient Overlay */}
-      <div className="team-gradient-overlay" aria-hidden="true" />
-
-      {/* Content Layer (z-10) */}
-      <div className="team-content-wrapper">
-        {/* Top Zone: Dynamic Bio with typing effect */}
-        <div className="team-top-zone">
-          <TypewriterBio
-            text={activeMember.bio}
-            memberKey={activeMember.name}
-            isVisible={isVisible}
-          />
+      <div className="team-container">
+        {/* Top Header: Meet Our Team */}
+        <div className="team-section-header">
+          <h2 className="team-section-title" id="team-title">
+            Meet Our Team
+          </h2>
         </div>
 
-        {/* Bottom Zone: Avatar Picker + Meta Footer */}
-        <div className="team-bottom-zone">
-          {/* Avatar Picker Row (Core Leaders) */}
-          <div className="team-avatar-row" role="tablist" aria-label="Team member avatars">
-            {TEAM_MEMBERS.map((member, index) => (
-              <button
-                key={member.name}
-                type="button"
-                className={`team-avatar-btn ${activeIndex === index ? 'active' : ''}`}
-                role="tab"
-                aria-selected={activeIndex === index}
-                aria-label={`Show ${member.name}`}
-                data-index={index}
-                onClick={() => setActiveIndex(index)}
-              >
-                <span className="team-avatar-dot" aria-hidden="true" />
-                <span className="team-avatar-thumb">
-                  <img
-                    src={member.avatar}
-                    alt={member.name}
-                    style={member.avatarPosition ? { objectPosition: member.avatarPosition } : undefined}
-                  />
-                </span>
-              </button>
+        {/* Contained Showcase Stage */}
+        <div
+          className="team-stage-card"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Stacked Background Portraits */}
+          <div className="team-bg-stack" aria-hidden="true">
+            {TEAM_MEMBERS.map((m, idx) => (
+              <div
+                key={m.name}
+                className={`team-bg-slide ${activeIndex === idx ? 'active' : ''}`}
+                style={{
+                  backgroundImage: `url('${m.image}')`,
+                  backgroundColor: m.bgColor,
+                }}
+              />
             ))}
           </div>
 
-          {/* Meta Footer */}
-          <footer className="team-meta-footer">
-            <div className="team-meta-name fade-in" key={`name-${activeMember.name}`} id="team-meta-name">
-              {activeMember.name}
+          {/* Light Dark Vignette Gradient Overlay */}
+          <div className="team-gradient-overlay" aria-hidden="true" />
+
+          {/* Content Layer (z-10) */}
+          <div className="team-content-wrapper">
+            {/* Top Zone: Dynamic Bio with typing effect */}
+            <div className="team-top-zone">
+              <div className="team-bio-bubble">
+                <TypewriterBio
+                  text={activeMember.bio}
+                  memberKey={activeMember.name}
+                  isVisible={isVisible}
+                />
+              </div>
             </div>
-            <div className="team-meta-role" key={`role-${activeMember.name}`} id="team-meta-role">
-              {activeMember.role}
+
+            {/* Bottom Zone: Avatar Picker + Meta Footer */}
+            <div className="team-bottom-zone">
+              {/* Avatar Picker Row (Core Leaders) */}
+              <div className="team-avatar-row" role="tablist" aria-label="Team member avatars">
+                {TEAM_MEMBERS.map((member, index) => (
+                  <button
+                    key={member.name}
+                    type="button"
+                    className={`team-avatar-btn ${activeIndex === index ? 'active' : ''}`}
+                    role="tab"
+                    aria-selected={activeIndex === index}
+                    aria-label={`Show ${member.name}`}
+                    data-index={index}
+                    onClick={() => {
+                      setActiveIndex(index);
+                      setIsPaused(true);
+                      setTimeout(() => setIsPaused(false), 5000);
+                    }}
+                  >
+                    <span className="team-avatar-dot" aria-hidden="true" />
+                    <span className="team-avatar-thumb">
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        style={member.avatarPosition ? { objectPosition: member.avatarPosition } : undefined}
+                      />
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Meta Footer */}
+              <footer className="team-meta-footer">
+                <div className="team-meta-info">
+                  <div className="team-meta-name fade-in" key={`name-${activeMember.name}`} id="team-meta-name">
+                    {activeMember.name}
+                  </div>
+                  <div className="team-meta-role" key={`role-${activeMember.name}`} id="team-meta-role">
+                    {activeMember.role}
+                  </div>
+                </div>
+                <div className="team-meta-contacts" id="team-meta-contacts">
+                  <a
+                    href={activeMember.telegram}
+                    id="team-contact-tg"
+                    className="team-contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Telegram"
+                  >
+                    <i className="fa-brands fa-telegram" />
+                    <span>Telegram</span>
+                  </a>
+                  <a
+                    href={activeMember.discord}
+                    id="team-contact-dc"
+                    className="team-contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Discord"
+                  >
+                    <i className="fa-brands fa-discord" />
+                    <span>Discord</span>
+                  </a>
+                  <a
+                    href={activeMember.twitter}
+                    id="team-contact-tw"
+                    className="team-contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                  >
+                    <i className="fa-brands fa-x-twitter" />
+                    <span>Twitter</span>
+                  </a>
+                </div>
+              </footer>
             </div>
-            <div className="team-meta-contacts" id="team-meta-contacts">
-              <a
-                href={activeMember.telegram}
-                id="team-contact-tg"
-                className="team-contact-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
-              >
-                <i className="fa-brands fa-telegram" />
-                <span>Telegram</span>
-              </a>
-              <a
-                href={activeMember.discord}
-                id="team-contact-dc"
-                className="team-contact-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Discord"
-              >
-                <i className="fa-brands fa-discord" />
-                <span>Discord</span>
-              </a>
-              <a
-                href={activeMember.twitter}
-                id="team-contact-tw"
-                className="team-contact-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-              >
-                <i className="fa-brands fa-x-twitter" />
-                <span>Twitter</span>
-              </a>
-            </div>
-          </footer>
+          </div>
         </div>
       </div>
     </section>

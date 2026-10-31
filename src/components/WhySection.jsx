@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
 
 const WHY_SLIDES = [
   {
@@ -68,150 +67,27 @@ const WHY_SLIDES = [
   },
 ];
 
-const WHY_SUBHEAD_WORDS = [
-  'We', 'are', 'more', 'than', 'a', 'Web3', 'agency', '-', 'we', 'are', 'a', 'growth',
-  'network', 'connecting', 'projects', 'with', 'the', 'right', 'people,', 'communities',
-  'and', 'resources', 'to', 'grow', 'and', 'scale.'
-];
-
-export default function WhySection({ onSlideChangeRegister, onNavigateToSection }) {
+export default function WhySection({ onNavigateToSection }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef(null);
-  const canvasRef = useRef(null);
-  const headlineRef = useRef(null);
-  const subheadRef = useRef(null);
   const touchStartRef = useRef({ x: 0, y: 0 });
 
   const goToSlide = (index) => {
-    const nextIdx = Math.max(0, Math.min(WHY_SLIDES.length - 1, index));
+    const nextIdx = (index + WHY_SLIDES.length) % WHY_SLIDES.length;
     setCurrentSlide(nextIdx);
   };
 
+  // Automatic slide transition (Autoplay every 3.8s)
   useEffect(() => {
-    if (typeof onSlideChangeRegister === 'function') {
-      onSlideChangeRegister({
-        getCurrentSlide: () => currentSlide,
-        goToSlide,
-        totalSlides: WHY_SLIDES.length,
-      });
-    }
-  }, [currentSlide, onSlideChangeRegister]);
+    if (isPaused) return;
 
-  // Initialize Scramble / Glitch Text on Headline & Subtitle Gravity Drop
-  useEffect(() => {
-    let scrambler = null;
-    if (headlineRef.current && typeof window.initScrambleText === 'function') {
-      scrambler = window.initScrambleText(headlineRef.current, {
-        duration: 850,
-        stepTime: 36,
-        hover: true,
-      });
-    }
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % WHY_SLIDES.length);
+    }, 3800);
 
-    // Initialize Subtitle Gravity Words
-    const wordElements = subheadRef.current
-      ? subheadRef.current.querySelectorAll('.gravity-word')
-      : [];
-
-    const triggerGravityDrop = () => {
-      if (!wordElements.length) return;
-      gsap.killTweensOf(wordElements);
-      gsap.fromTo(
-        wordElements,
-        {
-          y: (i) => -65 - ((i * 11) % 35),
-          opacity: 0,
-          rotation: (i) => ((i % 5) - 2) * 3,
-          scale: 0.94,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          rotation: 0,
-          scale: 1,
-          duration: 0.85,
-          stagger: {
-            each: 0.012,
-            from: 'start',
-          },
-          ease: 'bounce.out',
-          clearProps: 'transform,opacity',
-        }
-      );
-    };
-
-    let hasScrambled = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
-            if (!hasScrambled) {
-              hasScrambled = true;
-              if (scrambler) scrambler.scramble();
-              triggerGravityDrop();
-            }
-          } else if (!entry.isIntersecting) {
-            hasScrambled = false;
-          }
-        });
-      },
-      { threshold: [0.15] }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    // Trigger on load if already in viewport
-    const timer = setTimeout(() => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          hasScrambled = true;
-          if (scrambler) scrambler.scramble();
-          triggerGravityDrop();
-        }
-      }
-    }, 300);
-
-    return () => {
-      clearTimeout(timer);
-      observer.disconnect();
-    };
-  }, []);
-
-  // Initialize WebGL Predictive Arc
-  useEffect(() => {
-    let arcInstance = null;
-    if (sectionRef.current && canvasRef.current && typeof window.initPredictiveArc === 'function') {
-      arcInstance = window.initPredictiveArc(sectionRef.current, canvasRef.current, {
-        background: '#030303',
-        baseColor: '#FF0000',
-        accentColor: '#FF9898',
-        highlight: '#FF0000',
-        density: 78,
-        dotSize: 102,
-        speed: 100,
-        arch: {
-          peak: 100,
-          falloff: 600,
-          thickness: 206,
-          archHeight: 0,
-        },
-        pointer: {
-          radius: 236,
-          enabled: true,
-          strength: 34,
-        },
-      });
-    }
-
-    return () => {
-      if (arcInstance && typeof arcInstance.destroy === 'function') {
-        arcInstance.destroy();
-      }
-    };
-  }, []);
+    return () => clearInterval(timer);
+  }, [isPaused]);
 
   const handleTouchStart = (e) => {
     touchStartRef.current = {
@@ -227,13 +103,41 @@ export default function WhySection({ onSlideChangeRegister, onNavigateToSection 
     const diffY = touchStartRef.current.y - endY;
 
     if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
-      if (diffX > 0 && currentSlide < WHY_SLIDES.length - 1) {
+      if (diffX > 0) {
         goToSlide(currentSlide + 1);
-      } else if (diffX < 0 && currentSlide > 0) {
+      } else if (diffX < 0) {
         goToSlide(currentSlide - 1);
       }
     }
   };
+
+  const renderNavControls = (isMobile = false) => (
+    <div className={`why-nav-controls ${isMobile ? 'why-nav-controls--mobile' : 'why-nav-controls--desktop'}`}>
+      <button
+        type="button"
+        className="why-arrow-btn prev"
+        id={isMobile ? 'why-prev-btn-mob' : 'why-prev-btn'}
+        aria-label="Previous pillar"
+        onClick={() => goToSlide(currentSlide - 1)}
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+      </button>
+      <div className="why-counter" id={isMobile ? 'why-counter-mob' : 'why-counter'}>
+        <span className="why-cur-num">0{currentSlide + 1}</span>
+        <span className="why-sep">/</span>
+        <span className="why-total-num">04</span>
+      </div>
+      <button
+        type="button"
+        className="why-arrow-btn next"
+        id={isMobile ? 'why-next-btn-mob' : 'why-next-btn'}
+        aria-label="Next pillar"
+        onClick={() => goToSlide(currentSlide + 1)}
+      >
+        <i className="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  );
 
   return (
     <section
@@ -242,81 +146,36 @@ export default function WhySection({ onSlideChangeRegister, onNavigateToSection 
       aria-label="Why Choose Future Leaders"
       ref={sectionRef}
     >
-      {/* Predictive Arc WebGL Canvas Background (Originkit) */}
-      <div id="predictive-arc-root" className="predictive-arc-bg" aria-hidden="true">
-        <canvas id="predictive-arc-canvas" ref={canvasRef}></canvas>
-      </div>
-
-      {/* Technical Grid & Viewfinder Overlay Background */}
+      {/* Modern Subtle Technical Grid Overlay Background */}
       <div className="why-grid-bg" aria-hidden="true">
         <div className="why-diag-stripes"></div>
-        <div className="why-crosshair ch-tl">+</div>
-        <div className="why-crosshair ch-tr">+</div>
-        <div className="why-crosshair ch-bl">+</div>
-        <div className="why-crosshair ch-br">+</div>
-        <div className="why-coord-tag">SYS.FL // SPEC_2026 // GRID_4X</div>
       </div>
 
       {/* Top Header Bar */}
       <div className="why-header-bar">
         <div className="why-header-left">
-          <span className="why-badge">
-            <span className="why-badge-dot"></span>
-            WHY CHOOSE US
-          </span>
-          <h2
-            className="why-headline"
-            id="why-headline"
-            ref={headlineRef}
-            data-scramble="Why Choose Future Leaders?"
-            dangerouslySetInnerHTML={{ __html: 'Why Choose Future Leaders?' }}
-          />
+          <h2 className="why-headline" id="why-headline">
+            Why Choose Future Leaders?
+          </h2>
         </div>
-        <div className="why-header-right">
-          <p className="why-subhead" ref={subheadRef}>
-            {WHY_SUBHEAD_WORDS.map((w, idx) => (
-              <React.Fragment key={idx}>
-                <span className="gravity-word">{w}</span>
-                {idx < WHY_SUBHEAD_WORDS.length - 1 ? ' ' : ''}
-              </React.Fragment>
-            ))}
-          </p>
-          {/* Horizontal Navigation Controls */}
-          <div className="why-nav-controls">
-            <button
-              type="button"
-              className="why-arrow-btn prev"
-              id="why-prev-btn"
-              aria-label="Previous pillar"
-              disabled={currentSlide === 0}
-              onClick={() => goToSlide(currentSlide - 1)}
-            >
-              <i className="fa-solid fa-arrow-left"></i>
-            </button>
-            <div className="why-counter" id="why-counter">
-              <span className="why-cur-num" id="why-cur-num">0{currentSlide + 1}</span>
-              <span className="why-sep">/</span>
-              <span className="why-total-num">04</span>
-            </div>
-            <button
-              type="button"
-              className="why-arrow-btn next"
-              id="why-next-btn"
-              aria-label="Next pillar"
-              disabled={currentSlide === WHY_SLIDES.length - 1}
-              onClick={() => goToSlide(currentSlide + 1)}
-            >
-              <i className="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
+        <div className="why-header-right desktop-only-controls">
+          {renderNavControls(false)}
         </div>
       </div>
 
       {/* Slider Wrapper */}
       <div
         className="why-slider-wrapper"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={(e) => {
+          setIsPaused(true);
+          handleTouchStart(e);
+        }}
+        onTouchEnd={(e) => {
+          handleTouchEnd(e);
+          setTimeout(() => setIsPaused(false), 3000);
+        }}
       >
         <div
           className="why-track"
@@ -332,30 +191,7 @@ export default function WhySection({ onSlideChangeRegister, onNavigateToSection 
               <div className="why-card">
                 {/* Visual Viewfinder Frame */}
                 <div className="why-viewfinder">
-                  <span className="vf-corner vf-tl"></span>
-                  <span className="vf-corner vf-tr"></span>
-                  <span className="vf-corner vf-bl"></span>
-                  <span className="vf-corner vf-br"></span>
                   <img src={slide.img} alt={slide.title} className="why-card-img" />
-
-                  {/* Interactive Tag Badge */}
-                  <div className={`why-hotspot ${slide.hsClass}`}>
-                    <span className="why-hotspot-pin"></span>
-                    <div className="why-hotspot-card">
-                      <span className="why-hotspot-icon">
-                        <i className={`fa-solid ${slide.hsIcon}`}></i>
-                      </span>
-                      <div className="why-hotspot-info">
-                        <span className="why-hotspot-label">{slide.hsLabel}</span>
-                        <span className="why-hotspot-stat">{slide.hsStat}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="why-frame-telemetry">
-                    <span>{slide.tel1}</span>
-                    <span>{slide.tel2}</span>
-                  </div>
                 </div>
 
                 {/* Information Panel */}
@@ -376,6 +212,11 @@ export default function WhySection({ onSlideChangeRegister, onNavigateToSection 
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Mobile & Tablet Bottom Controls */}
+      <div className="why-mobile-bottom-controls" aria-label="Slide navigation">
+        {renderNavControls(true)}
       </div>
 
       {/* Progress & Pagination */}
