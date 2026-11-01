@@ -10,7 +10,11 @@ const TEAM_MEMBERS = [
     image: '/assets/team/sakuna-full.webp',
     avatar: '/assets/team/sakuna-avatar.webp',
     bgColor: '#79bee7',
-    bio: 'Sakuna sets the visual direction and strategic vision of every project. He turns rough concepts into clear, confident design languages that feel effortless yet leave a lasting impression.',
+    bio: 'Head of Growth Future Leaders\nI do what I love | Building network of tomorrow leaders',
+    bioLink: {
+      phrase: 'Future Leaders',
+      url: 'https://x.com/0Futureleaders',
+    },
   },
   {
     name: 'Black Mamba',
@@ -26,7 +30,7 @@ const TEAM_MEMBERS = [
   },
   {
     name: 'Viking',
-    role: 'Growth Lead',
+    role: 'Co-Founder',
     telegram: 'https://t.me/badviking1995',
     discord: 'https://discord.com/users/518837405600448513',
     twitter: 'https://x.com/badviking1995',
@@ -37,14 +41,14 @@ const TEAM_MEMBERS = [
   },
   {
     name: 'Toji',
-    role: 'Co-Founder',
+    role: 'Growth Manager',
     telegram: 'https://t.me/Tojizeninhc',
     discord: 'https://discord.com/users/1223692374790901932',
     twitter: 'https://x.com/Tojizeninhc',
-    image: '/assets/team/toji-full.webp',
-    avatar: '/assets/team/toji-avatar.webp',
+    image: '/assets/team/tojifl-full.webp',
+    avatar: '/assets/team/tojifl-avatar.webp',
     bgColor: '#df1a22',
-    bio: 'Toji shapes community operations and growth mechanics. He builds active environments where members turn into brand advocates and long-term project supporters.',
+    bio: 'I am TOJI leading growth at Future Leaders. I have been involved in 200+ Web3 projects, working across community operations, creator relations, KOL marketing, business development, and ecosystem growth. My work includes building and managing communities, coordinating marketing campaigns, developing strategic partnerships, running ambassador programs, and connecting projects with the right creators and audiences. My focus is on turning connections into strong communities and sustainable growth.',
   },
   {
     name: 'Anas',
@@ -63,14 +67,16 @@ const TEAM_MEMBERS = [
     telegram: 'https://t.me/MrxArindam',
     discord: 'https://discord.com/users/1056180691987091467',
     twitter: 'https://x.com/ExeArindam',
+    github: 'https://github.com/mrarindam',
+    website: 'https://www.mrarindam.xyz/',
     image: '/assets/team/arindam-full.webp',
     avatar: '/assets/team/arindam-avatar.webp',
     bgColor: '#3b4450',
-    bio: 'Arindam engineers custom verification bots, data analytics pipelines, and secure Web3 growth integrations to scale community operations with zero friction.',
+    bio: "I'm Full-Stack Web Developer | Tech Enthusiast | AI Blog Writer",
   },
 ];
 
-function TypewriterBio({ text, memberKey, isVisible }) {
+function TypewriterBio({ text, bioLink, memberKey, isVisible }) {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
@@ -117,6 +123,38 @@ function TypewriterBio({ text, memberKey, isVisible }) {
     };
   }, [text, memberKey, isVisible]);
 
+  const renderContent = () => {
+    if (!bioLink || !bioLink.phrase || !bioLink.url) {
+      return <span>{displayedText}</span>;
+    }
+
+    const phraseStart = text.indexOf(bioLink.phrase);
+    if (phraseStart === -1 || displayedText.length <= phraseStart) {
+      return <span>{displayedText}</span>;
+    }
+
+    const phraseEnd = phraseStart + bioLink.phrase.length;
+    const before = displayedText.slice(0, phraseStart);
+    const linked = displayedText.slice(phraseStart, Math.min(displayedText.length, phraseEnd));
+    const after = displayedText.length > phraseEnd ? displayedText.slice(phraseEnd) : '';
+
+    return (
+      <>
+        <span>{before}</span>
+        <a
+          href={bioLink.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="team-bio-link"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {linked}
+        </a>
+        <span>{after}</span>
+      </>
+    );
+  };
+
   return (
     <p
       className="team-bio"
@@ -129,7 +167,7 @@ function TypewriterBio({ text, memberKey, isVisible }) {
       }}
       title={isTyping ? 'Click to reveal immediately' : undefined}
     >
-      <span>{displayedText}</span>
+      {renderContent()}
     </p>
   );
 }
@@ -239,6 +277,7 @@ export default function TeamSection() {
               <div className="team-bio-bubble">
                 <TypewriterBio
                   text={activeMember.bio}
+                  bioLink={activeMember.bioLink}
                   memberKey={activeMember.name}
                   isVisible={isVisible}
                 />
@@ -287,39 +326,71 @@ export default function TeamSection() {
                   </div>
                 </div>
                 <div className="team-meta-contacts" id="team-meta-contacts">
-                  <a
-                    href={activeMember.telegram}
-                    id="team-contact-tg"
-                    className="team-contact-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Telegram"
-                  >
-                    <i className="fa-brands fa-telegram" />
-                    <span>Telegram</span>
-                  </a>
-                  <a
-                    href={activeMember.discord}
-                    id="team-contact-dc"
-                    className="team-contact-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Discord"
-                  >
-                    <i className="fa-brands fa-discord" />
-                    <span>Discord</span>
-                  </a>
-                  <a
-                    href={activeMember.twitter}
-                    id="team-contact-tw"
-                    className="team-contact-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Twitter"
-                  >
-                    <i className="fa-brands fa-x-twitter" />
-                    <span>Twitter</span>
-                  </a>
+                  {activeMember.telegram && (
+                    <a
+                      href={activeMember.telegram}
+                      id="team-contact-tg"
+                      className="team-contact-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Telegram"
+                    >
+                      <i className="fa-brands fa-telegram" />
+                      <span>Telegram</span>
+                    </a>
+                  )}
+                  {activeMember.discord && (
+                    <a
+                      href={activeMember.discord}
+                      id="team-contact-dc"
+                      className="team-contact-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Discord"
+                    >
+                      <i className="fa-brands fa-discord" />
+                      <span>Discord</span>
+                    </a>
+                  )}
+                  {activeMember.twitter && (
+                    <a
+                      href={activeMember.twitter}
+                      id="team-contact-tw"
+                      className="team-contact-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Twitter"
+                    >
+                      <i className="fa-brands fa-x-twitter" />
+                      <span>Twitter</span>
+                    </a>
+                  )}
+                  {activeMember.github && (
+                    <a
+                      href={activeMember.github}
+                      id="team-contact-gh"
+                      className="team-contact-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub"
+                    >
+                      <i className="fa-brands fa-github" />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+                  {activeMember.website && (
+                    <a
+                      href={activeMember.website}
+                      id="team-contact-web"
+                      className="team-contact-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Website"
+                    >
+                      <i className="fa-solid fa-globe" />
+                      <span>Website</span>
+                    </a>
+                  )}
                 </div>
               </footer>
             </div>
